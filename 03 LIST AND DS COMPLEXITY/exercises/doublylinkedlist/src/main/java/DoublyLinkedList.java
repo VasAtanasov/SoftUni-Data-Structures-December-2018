@@ -17,10 +17,6 @@ public class DoublyLinkedList<E> implements Iterable<E> {
         return this.size;
     }
 
-    private void setSize(int size) {
-        this.size = size;
-    }
-
     public void addFirst(E element) {
         ListNode<E> newHead = new ListNode<>(element);
         if (this.size == 0) {
