@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Ex03LongestSubsequent {
+public class Ex03LongestSubSequence02 {
     private static BufferedReader reader;
     private static List<Integer> numbers;
     private static int bestLength;
