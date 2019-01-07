@@ -62,7 +62,19 @@ public class CircularQueue<E> {
         E result = this.elements[this.startIndex];
         this.startIndex = (this.startIndex + 1) % this.elements.length;
         this.size--;
+        if (this.size < this.elements.length / 4) {
+            this.shrink();
+        }
         return result;
+    }
+
+    @SuppressWarnings("unchecked")
+    private void shrink() {
+        E[] newArray = (E[]) new Object[this.elements.length / 2];
+        this.copyAllElementsTo(newArray);
+        this.startIndex = 0;
+        this.endIndex = this.size;
+        this.elements = newArray;
     }
 
     @SuppressWarnings("unchecked")
