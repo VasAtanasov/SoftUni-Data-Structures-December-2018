@@ -5,21 +5,21 @@ public class BinaryTree<T> {
     private static final String INDENT = " ";
 
     private T value;
-    private BinaryTree<T> leftChiled;
-    private BinaryTree<T> rightChiled;
+    private BinaryTree<T> leftChild;
+    private BinaryTree<T> rightChild;
 
     public BinaryTree(T value) {
         this.value = value;
     }
 
     public BinaryTree(T value, BinaryTree<T> child) {
-        this.leftChiled = this.rightChiled = child;
+        this.leftChild = this.rightChild = child;
     }
 
     public BinaryTree(T value, BinaryTree<T> leftChild, BinaryTree<T> rightChild) {
         this(value);
-        this.leftChiled = leftChild;
-        this.rightChiled = rightChild;
+        this.leftChild = leftChild;
+        this.rightChild = rightChild;
     }
 
     // append output to builder
@@ -30,32 +30,32 @@ public class BinaryTree<T> {
 
         builder.append(this.value).append("\n");
 
-        if (this.leftChiled != null) {
-            this.leftChiled.printIndentedPreOrder(indent + 1, builder);
+        if (this.leftChild != null) {
+            this.leftChild.printIndentedPreOrder(indent + 1, builder);
         }
-        if (this.rightChiled != null) {
-            this.rightChiled.printIndentedPreOrder(indent + 1, builder);
+        if (this.rightChild != null) {
+            this.rightChild.printIndentedPreOrder(indent + 1, builder);
         }
 
         return builder.toString();
     }
 
     public void eachInOrder(Consumer<T> consumer) {
-        if (this.leftChiled != null) {
-            this.leftChiled.eachInOrder(consumer);
+        if (this.leftChild != null) {
+            this.leftChild.eachInOrder(consumer);
         }
         consumer.accept(this.value);
-        if (this.rightChiled != null) {
-            this.rightChiled.eachInOrder(consumer);
+        if (this.rightChild != null) {
+            this.rightChild.eachInOrder(consumer);
         }
     }
 
     public void eachPostOrder(Consumer<T> consumer) {
-        if (this.leftChiled != null) {
-            this.leftChiled.eachPostOrder(consumer);
+        if (this.leftChild != null) {
+            this.leftChild.eachPostOrder(consumer);
         }
-        if (this.rightChiled != null) {
-            this.rightChiled.eachPostOrder(consumer);
+        if (this.rightChild != null) {
+            this.rightChild.eachPostOrder(consumer);
         }
         consumer.accept(this.value);
     }
