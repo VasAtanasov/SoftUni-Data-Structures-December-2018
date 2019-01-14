@@ -4,6 +4,7 @@ import java.util.function.Consumer;
 
 public class BinarySearchTree<T extends Comparable<T>> {
     private Node root;
+    private int nodesCount;
 
     public BinarySearchTree() {
     }
@@ -62,6 +63,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     private Node insert(Node node, T value) {
         if (node == null) {
+            this.nodesCount++;
             return new Node(value);
         }
 
@@ -133,6 +135,16 @@ public class BinarySearchTree<T extends Comparable<T>> {
         }
     }
 
+    private T minValue(Node root) {
+        T minv = root.value;
+        while (root.left != null) {
+            minv = root.left.value;
+            root = root.left;
+        }
+
+        return minv;
+    }
+
     public void deleteMin() {
         if (this.root == null) {
             throw new IllegalArgumentException("Tree is empty!");
@@ -151,6 +163,32 @@ public class BinarySearchTree<T extends Comparable<T>> {
         } else {
             parent.left = current.right;
         }
+
+        this.nodesCount--;
+    }
+
+    public void deleteMax() {
+        throw new UnsupportedOperationException();
+    }
+
+    public T ceil(T element) {
+        throw new UnsupportedOperationException();
+    }
+
+    public T floor(T element) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void delete(T key) {
+        throw new UnsupportedOperationException();
+    }
+
+    public int rank(T item) {
+        throw new UnsupportedOperationException();
+    }
+
+    public T select(int n) {
+        throw new UnsupportedOperationException();
     }
 
     class Node {
