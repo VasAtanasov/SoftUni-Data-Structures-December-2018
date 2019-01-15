@@ -315,7 +315,7 @@ public class BinarySearchTreeTests {
         bst.deleteMax();
 
         BinarySearchTree<Integer>.Node right_node = bst.getRoot().getRight().getRight();
-        Assert.assertEquals(null, right_node);
+        Assert.assertNull(right_node);
 
         BinarySearchTree<Integer>.Node left_node = bst.getRoot().getRight().getLeft();
         Assert.assertEquals(Integer.valueOf(18), left_node.getValue());
@@ -331,6 +331,7 @@ public class BinarySearchTreeTests {
         bst.insert(1);
         bst.insert(8);
         bst.insert(18);
+
 
         bst.deleteMax();
 
