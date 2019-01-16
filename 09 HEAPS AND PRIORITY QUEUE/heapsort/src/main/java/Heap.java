@@ -19,9 +19,9 @@ public class Heap {
     private static <T extends Comparable<T>> void heapifyDown(T[] array, int index, int length) {
         while(index < length/2){
             T element = array[index];
-            int child = index*2 + 1;
-            if (length > index*2 + 2 && array[index*2 + 2].compareTo(array[child]) > 0){
-                child++;
+            int child = left(index);
+            if (length > right(index) && array[right(index)].compareTo(array[left(index)]) > 0){
+                child = right(index);
             }
             if (element.compareTo(array[child]) < 0){
                 swap(array, index, child);
@@ -36,6 +36,10 @@ public class Heap {
         T temp = heap[parentIndex];
         heap[parentIndex] = heap[childIndex];
         heap[childIndex] = temp;
+    }
+
+    private static int right(int index) {
+        return (2 * index) + 2;
     }
 
     private static int left(int index) {
