@@ -13,7 +13,8 @@ public class Main {
             };
 
     public static void main(String[] args) {
-        // map = readMap();
+
+        //map = readMap();
 
         Node start = findGoal('P');
         Node goal = findGoal('*');
@@ -23,7 +24,7 @@ public class Main {
 
         for (Node node : path) {
             int row = node.getRow();
-            int col = node.getRow();
+            int col = node.getCol();
             map[row][col] = '@';
         }
 
@@ -33,8 +34,9 @@ public class Main {
     private static char[][] readMap() {
         Scanner in = new Scanner(System.in);
         int n = Integer.parseInt(in.nextLine());
+        int m = Integer.parseInt(in.nextLine());
 
-        char[][] map = new char[n][n];
+        char[][] map = new char[n][m];
         for (int i = 0; i < map.length; i++) {
             char[] line = in.nextLine().toCharArray();
             for (int j = 0; j < map[i].length; j++) {
@@ -45,7 +47,7 @@ public class Main {
         return map;
     }
 
-    private static Node findGoal(char goal) {
+    static Node findGoal(char goal) {
         for (int row = 0; row < map.length; row++) {
             for (int col = 0; col < map[row].length; col++) {
                 if (map[row][col] == goal) {
@@ -57,7 +59,7 @@ public class Main {
         throw new IllegalArgumentException("Object not present on map");
     }
 
-    private static void printMap() {
+    static void printMap() {
         for (int row = 0; row < map.length; row++) {
             for (int col = 0; col < map[row].length; col++) {
                 System.out.print(map[row][col] + " ");

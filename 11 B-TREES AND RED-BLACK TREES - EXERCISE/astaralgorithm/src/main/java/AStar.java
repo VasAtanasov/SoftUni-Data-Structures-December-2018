@@ -2,101 +2,60 @@ import java.util.*;
 
 public class AStar {
 
-    private char[][] maze;
-    private PriorityQueue<Node> pQue;
-    private Map<Node, Node> parents;
-    private Map<Node, Integer> gCost;
-
-    public AStar() {
-        this.pQue = new PriorityQueue<>();
-        this.parents = new LinkedHashMap<>();
-        this.gCost = new LinkedHashMap<>();
-    }
+    private Map<Node, Node> path;
+    private char[][] map;
+    private PriorityQueue<Node> queue;
 
     public AStar(char[][] map) {
-        this();
-        this.maze = map;
+        this.map = map;
+        this.path = new HashMap<>();
+        this.queue = new PriorityQueue<>();
     }
 
     public static int getH(Node current, Node goal) {
-        int deltaX = Math.abs(current.getCol() - goal.getCol());
-        int deltaY = Math.abs(current.getRow() - goal.getRow());
-        return deltaX + deltaY;
+        return Math.abs(goal.getCol() - current.getCol()) + Math.abs(goal.getRow() - current.getRow());
     }
 
     public Iterable<Node> getPath(Node start, Node goal) {
-        this.gCost.put(start, 0);
-        this.parents.put(start, null);
-        this.pQue.enqueue(start);
-
-        while (! this.pQue.isEmpty()) {
-            Node current = this.pQue.dequeue();
-            if (current.equals(goal)) {
+        Node currentNode = start;
+        this.queue.enqueue(currentNode);
+        List<Node> path = new ArrayList<>();
+        while (this.queue.size() != 0) {
+            currentNode = this.queue.dequeue();
+            if (this.map[currentNode.getRow()][currentNode.getCol()] == '*'){
                 break;
             }
-
-            List<Node> surroundingNodes = this.getSurroundingNodes(current);
-            int newCost = this.gCost.get(current) + 1;
-
-            for (Node node : surroundingNodes) {
-                if (! this.gCost.containsKey(node) || newCost < this.gCost.get(node)) {
-                    node.setF(newCost + getH(node, goal));
-                    this.parents.put(node, current);
-                    this.gCost.put(node, newCost);
-                    this.pQue.enqueue(node);
+            checkAdjacentNode(new Node(currentNode.getRow() + 1, currentNode.getCol()), goal, start, currentNode);
+            checkAdjacentNode(new Node(currentNode.getRow() , currentNode.getCol() + 1), goal, start, currentNode);
+            checkAdjacentNode(new Node(currentNode.getRow() - 1, currentNode.getCol()), goal, start, currentNode);
+            checkAdjacentNode(new Node(currentNode.getRow(), currentNode.getCol() - 1), goal, start, currentNode);
+        }
+        if (this.path.containsKey(goal)){
+            path.add(currentNode);
+            while(true){
+                if (this.path.containsKey(currentNode)){
+                    Node parent = this.path.get(currentNode);
+                    path.add(parent);
+                    currentNode = parent;
+                }else{
+                    break;
                 }
             }
+            Collections.reverse(path);
+        }else{
+            path.add(null);
         }
-
-        return this.reconstructPath(start, goal);
-    }
-
-    private Iterable<Node> reconstructPath(Node start, Node goal) {
-        if (! this.parents.containsKey(goal)) {
-            return Collections.singletonList(start);
-        }
-
-        Node current = parents.get(goal);
-        Deque<Node> path = new ArrayDeque<>();
-        path.push(current);
-        while (! current.equals(start)) {
-            path.push(current);
-            current = this.parents.get(current);
-        }
-        path.push(start);
         return path;
     }
 
-    private List<Node> getSurroundingNodes(Node current) {
-        List<Node> result = new ArrayList<>();
-        int row = current.getRow();
-        int col = current.getCol();
-
-        int rowUp = row - 1;
-        int rowDown = row + 1;
-        int colLeft = col - 1;
-        int colRight = col + 1;
-
-        this.addToQueue(result, rowUp, col);
-        this.addToQueue(result, rowDown, col);
-        this.addToQueue(result, row, colLeft);
-        this.addToQueue(result, row, colRight);
-
-        return result;
-    }
-
-    private void addToQueue(List<Node> result, int row, int col) {
-        if (isInside(row, col) && ! isWall(row, col)) {
-            result.add(new Node(row, col));
+    private void checkAdjacentNode(Node node, Node goal, Node start, Node parent){
+        try{
+            if(this.map[node.getRow()][node.getCol()] != 'W' && this.map[node.getRow()][node.getCol()] != 'P' && !this.path.containsKey(node)){
+                node.setF(getH(node, goal) + getH(node, start));
+                this.queue.enqueue(node);
+                this.path.put(node, parent);
+            }
+        }catch (IndexOutOfBoundsException ie){
         }
-    }
-
-    private boolean isInside(int row, int col) {
-        return row >= 0 && row < this.maze.length &&
-                col >= 0 && col < this.maze[row].length;
-    }
-
-    private boolean isWall(int row, int col) {
-        return this.maze[row][col] == 'W';
     }
 }

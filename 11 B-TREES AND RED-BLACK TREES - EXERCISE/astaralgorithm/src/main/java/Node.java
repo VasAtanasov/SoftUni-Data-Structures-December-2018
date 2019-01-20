@@ -39,15 +39,15 @@ public class Node implements Comparable<Node> {
 
     @Override
     public boolean equals(Object obj) {
-        Node other = (Node) obj;
+        Node other = (Node)obj;
         return this.row == other.row && this.col == other.col;
     }
 
     @Override
     public int hashCode() {
         int hash = 17;
-        hash = 31 * hash + ((Integer) this.row).hashCode();
-        hash = 31 * hash + ((Integer) this.col).hashCode();
+        hash = 31 * hash + ((Integer)this.row).hashCode();
+        hash = 31 * hash + ((Integer)this.col).hashCode();
         return hash;
     }
 

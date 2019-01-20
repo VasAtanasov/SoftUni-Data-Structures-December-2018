@@ -1,11 +1,12 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class PriorityQueue<T extends Comparable<T>> {
+public class PriorityQueue<Node extends Comparable<Node>> {
 
-    private List<T> heap;
+    private List<Node> heap;
 
     public PriorityQueue() {
+
         this.heap = new ArrayList<>();
     }
 
@@ -13,29 +14,24 @@ public class PriorityQueue<T extends Comparable<T>> {
         return this.heap.size();
     }
 
-    public boolean isEmpty() {
-        return this.size() == 0;
-    }
-
-    public void enqueue(T item) {
+    public void enqueue(Node item) {
         this.heap.add(item);
         this.heapifyUp(this.heap.size() - 1);
     }
 
-    public T peek() {
+    public Node peek() {
         if (this.size() <= 0) {
             throw new IllegalArgumentException("Queue is empty!");
         }
-
         return this.heap.get(0);
     }
 
-    public T dequeue() {
+    public Node dequeue() {
         if (this.size() <= 0) {
             throw new IllegalArgumentException("Queue is empty!");
         }
 
-        T item = this.heap.get(0);
+        Node item = this.heap.get(0);
 
         this.swap(0, this.heap.size() - 1);
         this.heap.remove(this.heap.size() - 1);
@@ -44,9 +40,9 @@ public class PriorityQueue<T extends Comparable<T>> {
         return item;
     }
 
-    public void decreaseKey(T item) {
+    public void decreaseKey(Node item) {
         int index = this.heap.indexOf(item);
-        this.heapifyUp(index);
+        heapifyUp(index);
     }
 
     private void heapifyUp(int index) {
@@ -93,7 +89,7 @@ public class PriorityQueue<T extends Comparable<T>> {
     }
 
     private void swap(int a, int b) {
-        T temp = this.heap.get(a);
+        Node temp = this.heap.get(a);
         this.heap.set(a, this.heap.get(b));
         this.heap.set(b, temp);
     }
