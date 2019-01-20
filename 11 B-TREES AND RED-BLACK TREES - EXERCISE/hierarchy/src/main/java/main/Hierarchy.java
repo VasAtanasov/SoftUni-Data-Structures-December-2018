@@ -112,19 +112,6 @@ public class Hierarchy<T> implements IHierarchy<T> {
         return allElements.iterator();
     }
 
-    private class HierarchyIterator implements Iterator<T> {
-
-        @Override
-        public boolean hasNext() {
-            return false;
-        }
-
-        @Override
-        public T next() {
-            return null;
-        }
-    }
-
     private class Node {
 
         private T value;
