@@ -8,7 +8,7 @@ public interface IHierarchy<T> extends Iterable<T> {
 
     void Remove(T element);
 
-    Iterable<T> getChildren(T element);
+    Iterable<T> GetChildren(T element);
     
     T GetParent(T element);
 

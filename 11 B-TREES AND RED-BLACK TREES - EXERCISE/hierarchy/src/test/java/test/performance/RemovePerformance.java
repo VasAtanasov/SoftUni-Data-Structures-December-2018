@@ -42,7 +42,7 @@ public class RemovePerformance extends BasePerformanceTest {
 
         Assert.assertEquals("Incorrect count after removal!", 1, hierarchy.getCount());
         Assert.assertTrue(hierarchy.Contains(-1));
-        Assert.assertEquals("Children were not deleted correcly after removal!", 0, IterableExtensions.getCount(hierarchy.getChildren(-1)));
+        Assert.assertEquals("Children were not deleted correcly after removal!", 0, IterableExtensions.getCount(hierarchy.GetChildren(-1)));
     }
 
     @Category(PerformanceTests.class)
@@ -100,9 +100,9 @@ public class RemovePerformance extends BasePerformanceTest {
         }
 
         Assert.assertTrue(hierarchy.Contains(-2));
-        Assert.assertEquals(Arrays.asList(4000), IterableExtensions.toList(hierarchy.getChildren(9001)));
-        Assert.assertEquals(Arrays.asList(13000), IterableExtensions.toList(hierarchy.getChildren(18001)));
-        Assert.assertEquals(Arrays.asList(22000), IterableExtensions.toList(hierarchy.getChildren(27001)));
-        Assert.assertEquals(Arrays.asList(31000), IterableExtensions.toList(hierarchy.getChildren(36001)));
+        Assert.assertEquals(Arrays.asList(4000), IterableExtensions.toList(hierarchy.GetChildren(9001)));
+        Assert.assertEquals(Arrays.asList(13000), IterableExtensions.toList(hierarchy.GetChildren(18001)));
+        Assert.assertEquals(Arrays.asList(22000), IterableExtensions.toList(hierarchy.GetChildren(27001)));
+        Assert.assertEquals(Arrays.asList(31000), IterableExtensions.toList(hierarchy.GetChildren(36001)));
     }
 }
