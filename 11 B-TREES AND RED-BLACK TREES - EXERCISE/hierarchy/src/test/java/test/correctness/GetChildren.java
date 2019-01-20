@@ -29,7 +29,7 @@ public class GetChildren extends BaseTest {
         this.Hierarchy.Add(13, 17);
         this.Hierarchy.Add(13, -666);
 
-        Iterable<Integer> children = this.Hierarchy.GetChildren(-666);
+        Iterable<Integer> children = this.Hierarchy.getChildren(-666);
 
         Assert.assertEquals(0, IterableExtensions.getCount(children));
     }
@@ -44,7 +44,7 @@ public class GetChildren extends BaseTest {
         this.Hierarchy.Add(55, 18);
         this.Hierarchy.Add(10, -666);
 
-        Iterable<Integer> children = this.Hierarchy.GetChildren(10);
+        Iterable<Integer> children = this.Hierarchy.getChildren(10);
         List<Integer> result = IterableExtensions.toList(children);
 
         Assert.assertTrue(result.equals(Arrays.asList(-666)));
@@ -63,7 +63,7 @@ public class GetChildren extends BaseTest {
         this.Hierarchy.Add(110, 99);
         this.Hierarchy.Add(99, 1);
 
-        Iterable<Integer> children = this.Hierarchy.GetChildren(110);
+        Iterable<Integer> children = this.Hierarchy.getChildren(110);
         List<Integer> result = IterableExtensions.toList(children);
 
         Assert.assertTrue(result.equals(Arrays.asList(22, 333, 15, 99)));

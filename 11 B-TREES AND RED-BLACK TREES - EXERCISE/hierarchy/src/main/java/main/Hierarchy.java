@@ -74,7 +74,7 @@ public class Hierarchy<T> implements IHierarchy<T> {
         return node.getParent().getValue();
     }
 
-    public Iterable<T> GetChildren(T element) {
+    public Iterable<T> getChildren(T element) {
         if (! this.nodesByValue.containsKey(element)) {
             throw new IllegalArgumentException();
         }

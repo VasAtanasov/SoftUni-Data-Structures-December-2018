@@ -80,7 +80,7 @@ public class Add extends BaseTest {
 
         this.Hierarchy.Add(7, 25);
 
-        Iterator<Integer> iterator = this.Hierarchy.GetChildren(7).iterator();
+        Iterator<Integer> iterator = this.Hierarchy.getChildren(7).iterator();
         iterator.next();
         Assert.assertEquals("Element wasn't added at correct place!", 25, (int)iterator.next());
     }

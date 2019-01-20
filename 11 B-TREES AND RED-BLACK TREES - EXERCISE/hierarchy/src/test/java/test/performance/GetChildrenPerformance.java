@@ -29,7 +29,7 @@ public class GetChildrenPerformance extends BasePerformanceTest {
         List<Integer> expectedChildren = IntStream.range(1, 50000 + 1).boxed().collect(Collectors.toList());
         Collections.reverse(expectedChildren);
         long start = System.currentTimeMillis();
-        List<Integer> actualChildren = IterableExtensions.toList(hierarchy.GetChildren(-17));
+        List<Integer> actualChildren = IterableExtensions.toList(hierarchy.getChildren(-17));
 
         Assert.assertEquals(expectedChildren, actualChildren);
         long end = System.currentTimeMillis();
@@ -58,7 +58,7 @@ public class GetChildrenPerformance extends BasePerformanceTest {
 
         for (int i = 1; i <= 5000; i++)
         {
-            Iterable<Integer> children = hierarchy.GetChildren(i);
+            Iterable<Integer> children = hierarchy.getChildren(i);
             int count = 0;
             for (int child : children)
             {
@@ -69,7 +69,7 @@ public class GetChildrenPerformance extends BasePerformanceTest {
             Assert.assertEquals(10, count);
         }
 
-        List<Integer> actualChildren = IterableExtensions.toList(hierarchy.GetChildren(-88));
+        List<Integer> actualChildren = IterableExtensions.toList(hierarchy.getChildren(-88));
         Assert.assertEquals(expectedChildren, actualChildren);
 
         long end = System.currentTimeMillis();

@@ -64,7 +64,7 @@ public class Remove extends BaseTest {
         this.Hierarchy.Remove(3);
 
         Assert.assertFalse(this.Hierarchy.Contains(3));
-        Assert.assertFalse(IterableExtensions.contains(this.Hierarchy.GetChildren(2), 3));
+        Assert.assertFalse(IterableExtensions.contains(this.Hierarchy.getChildren(2), 3));
     }
 
     @Category(CorrectnessTests.class)
@@ -82,7 +82,7 @@ public class Remove extends BaseTest {
         Assert.assertEquals(DefaultRootValue, (int)this.Hierarchy.GetParent(12));
         Assert.assertEquals(DefaultRootValue, (int)this.Hierarchy.GetParent(13));
 
-        Iterable<Integer> rootChildren = this.Hierarchy.GetChildren(DefaultRootValue);
+        Iterable<Integer> rootChildren = this.Hierarchy.getChildren(DefaultRootValue);
         List<Integer> result = IterableExtensions.toList(rootChildren);
         Assert.assertTrue(result.equals(Arrays.asList(11, 12, 13)));
     }
