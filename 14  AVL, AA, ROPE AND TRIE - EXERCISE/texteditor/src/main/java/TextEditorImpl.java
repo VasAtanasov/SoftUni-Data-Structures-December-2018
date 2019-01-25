@@ -1,23 +1,20 @@
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TextEditorImpl implements TextEditor {
 
-    private Trie<List<String>> users;
-    private Map<String, Deque<List<String>>> cash;
+    private Trie<List<Character>> users;
+    private Trie<Deque<String>> cash;
 
     public TextEditorImpl() {
         this.users = new Trie<>();
-        this.cash = new HashMap<>();
+        this.cash = new Trie<>();
     }
 
 
     @Override
-
     public void login(String username) {
-
+        this.users.insert(username, new ArrayList<>());
+        this.cash.insert(username, new ArrayDeque<>());
     }
 
     @Override
