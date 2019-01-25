@@ -53,16 +53,16 @@ You are given a skeleton. Implement the following operations:
 - void Insert(Point2D) -> inserts a point into the tree 
 - bool Contains(Point2D) -> shows if the tree contains a given point
 
-    public class KdTree
-    {
-        private Node root;
-    
-        public void Insert(Point2D point) { … }
-    
-        public bool Contains(Point2D point) { … }
-    
-        public void EachInOrder(Action<Point2D> action) { … }
-    }
+        public class KdTree
+        {
+            private Node root;
+        
+            public void Insert(Point2D point) { … }
+        
+            public bool Contains(Point2D point) { … }
+        
+            public void EachInOrder(Action<Point2D> action) { … }
+        }
 
 #### Solution
 
