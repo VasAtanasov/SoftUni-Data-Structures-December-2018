@@ -78,4 +78,4 @@ The other thing to consider is to pass the depth of a node when attemting to ins
 <p><b>Implementation: <a href="./kdtree">K-d Tree</a></b></p>
 
 
- 
+<p><b>Document with tasks description: <a href="./09. Data-Structures-Kd-Trees-Interval-Trees-Lab.docx">09. Data-Structures-Kd-Trees-Interval-Trees-Lab.docx"</a></b></p>
