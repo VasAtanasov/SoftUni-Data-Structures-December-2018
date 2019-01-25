@@ -1,52 +1,46 @@
 public class ArrayList<T> {
-    private static final int INITIAL_CAPACITY = 2;
+    private static final int INITIAL_CAPACITY = 4;
 
     private T[] items;
-    private int cursor;
+    private int count;
 
+    public ArrayList() {
+        this(INITIAL_CAPACITY);
+    }
 
     @SuppressWarnings("unchecked")
-    public ArrayList() {
-        this.items = (T[]) new Object[INITIAL_CAPACITY];
-        this.cursor = 0;
+    public ArrayList(int capacity) {
+        this.items = (T[]) new Object[capacity];
+        this.count = 0;
     }
 
     public int getCount() {
-        return this.cursor;
+        return this.count;
     }
 
     public T get(int index) {
-        if (index < 0 || index >= this.items.length) {
-            throw new ArrayIndexOutOfBoundsException();
-        }
-        if (index >= cursor) {
+        if (isOutOfBounds(index)) {
             throw new ArrayIndexOutOfBoundsException();
         }
         return this.items[index];
     }
 
     public void add(T item) {
-        if (this.cursor == this.items.length) {
-            this.resize();
+        if (this.count == this.items.length) {
+            this.grow();
         }
-        this.items[this.cursor++] = item;
-    }
-
-    @SuppressWarnings("unchecked")
-    private void resize() {
-        T[] resized = (T[]) new Object[this.items.length * 2];
-        System.arraycopy(this.items, 0, resized, 0, this.items.length);
-        this.items = resized;
+        this.items[this.count++] = item;
     }
 
     public T removeAt(int index) {
-        if (index < 0 || index >= cursor) {
+        if (isOutOfBounds(index)) {
             throw new ArrayIndexOutOfBoundsException();
         }
         T item = this.items[index];
+        this.items[index] = null;
         this.shift(index);
-        this.cursor--;
-        if (this.cursor <= this.items.length / 4) {
+        this.count--;
+        if (this.count <= this.items.length / 4) {
             this.shrink();
         }
         return item;
@@ -54,29 +48,24 @@ public class ArrayList<T> {
 
     @SuppressWarnings("unchecked")
     private void shrink() {
-        T[] resized = (T[]) new Object[this.items.length / 2];
-        System.arraycopy(this.items, 0, resized, 0, resized.length);
-        this.items = resized;
+        T[] newArray = (T[]) new Object[this.items.length / 2];
+        if (this.count >= 0) System.arraycopy(this.items, 0, newArray, 0, this.count);
+        this.items = newArray;
     }
 
     private void shift(int index) {
-        for (int i = index; i < this.cursor; i++) {
-            if (this.items[i] == null) {
-                break;
-            }
-            this.items[i] = this.items[i + 1];
-        }
+        if (this.count - index >= 0) System.arraycopy(this.items, index + 1, this.items, index, this.count - index);
     }
 
-    @Override
-    public String toString() {
-        StringBuilder output = new StringBuilder();
-        for (int i = 0; i < this.cursor; i++) {
-            output.append(this.items[i]);
-            if (i < this.cursor - 1) {
-                output.append(" ");
-            }
-        }
-        return output.toString();
+    @SuppressWarnings("unchecked")
+    private void grow() {
+        T[] newArray = (T[]) new Object[this.items.length * 2];
+        System.arraycopy(this.items, 0, newArray, 0, this.items.length);
+        this.items = newArray;
     }
+
+    private boolean isOutOfBounds(int index) {
+        return index < 0 || index >= this.count;
+    }
+
 }

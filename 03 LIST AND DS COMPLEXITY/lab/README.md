@@ -46,3 +46,5 @@ Finally, implement RemoveAt, Shrink and Shift methods
 ![](./media/image8.png)
 ![](./media/image9.png)
 ![](./media/image10.png)
+
+<p><b>Solution: <a href="./arraylist">ArrayList</a></b></p>
