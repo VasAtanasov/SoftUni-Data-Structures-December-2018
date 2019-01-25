@@ -25,23 +25,23 @@ You are given a skeleton. Implement the following operations:
 Solution
 You will need to update the max endpoint whenever you insert (or delete/balance) a node
 
-![](../media/image1.png)
+![](./media/image1.png)
  
 GetMax() returns the node that has greater max endpoint, while guarding against null values
 
-![](../media/image2.png)
+![](./media/image2.png)
  
 Search for any interval that intersects given bounds
 
-![](../media/image3.png)
+![](./media/image3.png)
  
 Searching for all intervals will do a recursive DFS, so you will need one method to call the recursion
 
-![](../media/image4.png)
+![](./media/image4.png)
  
 And the actual DFS
 
-![](../media/image5.png)
+![](./media/image5.png)
 
 <p><b>Implementation: <a href="./intervaltree">Interval Tree</a></b></p>
 
