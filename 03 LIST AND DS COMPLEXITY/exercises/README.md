@@ -365,6 +365,6 @@ Finally, run the unit tests to ensure all of them pass correctly:
 
 Congratulations! You have implemented your doubly linked list.
 
-<p><b>SJava Impelementation: <a href="./doublylinkedlist">Doubly Linked List</a></b></p>
+<p><b>Java Impelementation: <a href="./doublylinkedlist">Doubly Linked List</a></b></p>
 
 <p><b>Document with tasks description: <a href="./01. Data-Structures-Linear-DS-Lists-and-Complexity-Homework.docx">01. Data-Structures-Linear-DS-Lists-and-Complexity-Homework.docx</a></b></p>
