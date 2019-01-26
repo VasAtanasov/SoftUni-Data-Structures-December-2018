@@ -205,7 +205,7 @@ Note: For Java, instead of indexer, create methods get(int index) and set(int in
 
 Hint: you can keep the elements in the order of their adding, by access them in reversed order (from end to start).
 
-<p><b>Document with tasks description: <a href="./reversedlist">Reversed List</a></b></p>
+<p><b>Java Impelementation: <a href="./reversedlist">Reversed List</a></b></p>
 
 ### Problem 7. \* Distance in Labyrinth
 
@@ -365,6 +365,6 @@ Finally, run the unit tests to ensure all of them pass correctly:
 
 Congratulations! You have implemented your doubly linked list.
 
-<p><b>Solution: <a href="./doublylinkedlist">Doubly Linked List</a></b></p>
+<p><b>SJava Impelementation: <a href="./doublylinkedlist">Doubly Linked List</a></b></p>
 
 <p><b>Document with tasks description: <a href="./01. Data-Structures-Linear-DS-Lists-and-Complexity-Homework.docx">01. Data-Structures-Linear-DS-Lists-and-Complexity-Homework.docx</a></b></p>
