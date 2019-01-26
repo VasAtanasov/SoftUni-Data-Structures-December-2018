@@ -3,39 +3,37 @@ import java.util.function.Consumer;
 
 public class DoublyLinkedList<E> implements Iterable<E> {
 
-    private ListNode<E> head;
-    private ListNode<E> tail;
+    private Node head;
+    private Node tail;
     private int size;
-
-    public DoublyLinkedList() {
-        this.head = null;
-        this.tail = null;
-        this.size = 0;
-    }
 
     public int size() {
         return this.size;
     }
 
+    private void setSize(int size) {
+        this.size = size;
+    }
+
     public void addFirst(E element) {
-        ListNode<E> newHead = new ListNode<>(element);
         if (this.size == 0) {
-            this.head = this.tail = newHead;
+            this.head = this.tail = new Node(element);
         } else {
-            newHead.nextListNode = this.head;
-            this.head.prevListNode = newHead;
+            Node newHead = new Node(element);
+            newHead.next = this.head;
+            this.head.prev = newHead;
             this.head = newHead;
         }
         this.size++;
     }
 
     public void addLast(E element) {
-        ListNode<E> newTail = new ListNode<>(element);
         if (this.size == 0) {
-            this.head = this.tail = newTail;
+            this.head = this.tail = new Node(element);
         } else {
-            newTail.prevListNode = this.tail;
-            this.tail.nextListNode = newTail;
+            Node newTail = new Node(element);
+            newTail.prev = this.tail;
+            this.tail.next = newTail;
             this.tail = newTail;
         }
         this.size++;
@@ -43,75 +41,69 @@ public class DoublyLinkedList<E> implements Iterable<E> {
 
     public E removeFirst() {
         if (this.size == 0) {
-            throw new IllegalArgumentException("Empty list");
+            throw new IllegalArgumentException();
         }
-        E value = this.head.value;
-        this.head = this.head.nextListNode;
+        Node first = this.head;
+        this.head = this.head.next;
         if (this.head != null) {
-            this.head.prevListNode = null;
+            this.head.prev = null;
         } else {
             this.tail = null;
         }
         this.size--;
-        return value;
+        return first.value;
     }
 
     public E removeLast() {
         if (this.size == 0) {
-            throw new IllegalArgumentException("Empty list");
+            throw new IllegalArgumentException();
         }
-        E value = this.tail.value;
-        this.tail = this.tail.prevListNode;
+        Node last = this.tail;
+        this.tail = this.tail.prev;
         if (this.tail != null) {
-            this.tail.nextListNode = null;
+            this.tail.next = null;
         } else {
             this.head = null;
         }
         this.size--;
-        return value;
+        return last.value;
     }
 
     @SuppressWarnings("unchecked")
     public E[] toArray() {
         E[] array = (E[]) new Object[this.size];
-        int idx[] = {0};
-        this.forEach(e -> array[idx[0]++] = e);
+        this.traverse(this.head, array, 0);
         return array;
     }
 
-    private class ListNode<E> {
-
-        private E value;
-        private ListNode<E> prevListNode;
-        private ListNode<E> nextListNode;
-
-        public ListNode(E value) {
-            this.value = value;
+    private void traverse(Node node, E[] array, int index) {
+        if (node == null) {
+            return;
         }
+        array[index++] = node.value;
+        traverse(node.next, array, index);
     }
-
 
     @Override
     public Iterator<E> iterator() {
-        return new MyIterator();
+        return new DoubleLinkedListIterator();
     }
 
     @Override
     public void forEach(Consumer<? super E> action) {
-        ListNode<E> currentNode = this.head;
+        Node currentNode = this.head;
         while (currentNode != null) {
             action.accept(currentNode.value);
-            currentNode = currentNode.nextListNode;
+            currentNode = currentNode.next;
         }
     }
 
-
-    private class MyIterator implements Iterator<E> {
+    private class DoubleLinkedListIterator implements Iterator<E> {
 
         private int index;
-        private ListNode<E> node;
+        private Node node;
 
-        MyIterator() {
+        DoubleLinkedListIterator() {
             this.index = 0;
             this.node = head;
         }
@@ -125,13 +117,23 @@ public class DoublyLinkedList<E> implements Iterable<E> {
         public E next() {
             E element = this.node.value;
             this.index++;
-            this.node = this.node.nextListNode;
+            this.node = this.node.next;
             return element;
         }
 
         @Override
         public void remove() {
 
+        }
+    }
+
+    private class Node {
+        private E value;
+        private Node next;
+        private Node prev;
+
+        public Node(E value) {
+            this.value = value;
         }
     }
 
