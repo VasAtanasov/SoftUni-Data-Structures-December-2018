@@ -161,6 +161,8 @@ Use the following code as start:
 
 You may modify and adjust the code from the DoublyLinkedList\<T> class from the last lesson. If the queue is empty, the Dequeue() should throw InvalidOperationException.
 
+<p><b><a href="./linkedqueue">Linked Queue</a> implementation</b></p>
+
 ### Problem 6. \* Sequence N -> M
 
 We are given numbers n and m, and the following operations:
@@ -226,3 +228,5 @@ Algorithm Print-Solution (item):
 - while (item not null)
 - print item.value
 - item = item.previous
+
+<p><b>Solution: <a href="./task/src/Ex06SequenceNM.java">Ex06SequenceNM.java</a></b></p>
