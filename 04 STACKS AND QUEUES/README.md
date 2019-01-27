@@ -54,8 +54,7 @@ You need to implement two methods. The first is the actual that will do the work
 
 <p><b>Document with tasks description: <a href="./02. Linear-Data-Structures-Stacks-and-Queues-Linked-List.docx">02. Linear-Data-Structures-Stacks-and-Queues-Linked-List.docx</a></b></p>
 
-
-## Exercises: Implement Circular Queue in C\#
+## Exercises: Implement Circular Queue
 
 This document defines the in-class exercises assignments the "Data Structures" course @ Software University. You can submit your code in the SoftUni Judge System - https://judge.softuni.bg/Contests/574/Linear-Data-Structures-Stacks-and-Queues-Lab.
 
