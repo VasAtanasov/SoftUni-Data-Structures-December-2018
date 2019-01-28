@@ -75,7 +75,7 @@ public class BinarySearchTreeTests {
         bst.insert(23);
 
         boolean contains = bst.contains(- 10);
-        Assert.assertEquals(false, contains);
+        Assert.assertFalse(contains);
     }
 
     @Test
@@ -91,7 +91,7 @@ public class BinarySearchTreeTests {
         bst.insert(23);
 
         boolean contains = bst.contains(21);
-        Assert.assertEquals(true, contains);
+        Assert.assertTrue(contains);
     }
 
     @Test
@@ -143,20 +143,20 @@ public class BinarySearchTreeTests {
         BinarySearchTree<Integer>.Node left = root.getLeft();
         BinarySearchTree<Integer>.Node right = root.getRight();
 
-        Assert.assertEquals(null, left);
+        Assert.assertNull(left);
         Assert.assertEquals(Integer.valueOf(50), right.getValue());
 
         BinarySearchTree<Integer>.Node right_left = right.getLeft();
         BinarySearchTree<Integer>.Node right_right = right.getRight();
 
-        Assert.assertEquals(null, right_left);
+        Assert.assertNull(right_left);
         Assert.assertEquals(Integer.valueOf(100), right_right.getValue());
 
         BinarySearchTree<Integer>.Node right_right_left = right_right.getLeft();
         BinarySearchTree<Integer>.Node right_right_right = right_right.getRight();
 
         Assert.assertEquals(Integer.valueOf(75), right_right_left.getValue());
-        Assert.assertEquals(null, right_right_right);
+        Assert.assertNull(right_right_right);
 
         BinarySearchTree<Integer>.Node right_right_left_left = right_right_left.getLeft();
         Assert.assertEquals(Integer.valueOf(60), right_right_left_left.getValue());
@@ -270,7 +270,7 @@ public class BinarySearchTreeTests {
         BinarySearchTree<Integer>.Node root = bst.getRoot();
         BinarySearchTree<Integer>.Node left = root.getLeft().getLeft();
 
-        Assert.assertEquals(null, left);
+        Assert.assertNull(left);
     }
 
     @Test
