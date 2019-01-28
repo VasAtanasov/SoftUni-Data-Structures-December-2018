@@ -2,34 +2,35 @@ import java.util.*;
 import java.util.function.Consumer;
 
 public class Tree<T> {
-
     private static final String INDENT = " ";
 
     private T value;
     private List<Tree<T>> children;
 
-    public Tree(T value) {
-        this.value = value;
-        this.children = new ArrayList<>();
-    }
-
     @SafeVarargs
     public Tree(T value, Tree<T>... children) {
-        this(value);
+        this.value = value;
+        this.children = new ArrayList<>();
         Collections.addAll(this.children, children);
     }
 
-    // append output to builder
     public String print(int indent, StringBuilder builder) {
+        this.print(this, indent, builder);
+        return builder.toString();
+    }
+
+    private void print(Tree<T> node, int indent, StringBuilder builder) {
+        if (node == null) {
+            return;
+        }
         for (int i = 0; i < indent * 2; i++) {
             builder.append(INDENT);
         }
-        builder.append(this.value)
-                .append("\n");
-        for (Tree<T> child : this.children) {
-            child.print(indent + 1, builder);
+        builder.append(node.value).append("\n");
+        indent++;
+        for (Tree<T> child : node.children) {
+            this.print(child, indent, builder);
         }
-        return builder.toString();
     }
 
     public void each(Consumer<T> consumer) {
@@ -54,13 +55,14 @@ public class Tree<T> {
 
     public Iterable<T> orderBFS() {
         List<T> result = new ArrayList<>();
-        Deque<Tree<T>> queue = new ArrayDeque<>();
-        queue.addLast(this);
-        while (! queue.isEmpty()) {
-            Tree<T> node = queue.removeFirst();
-            result.add(node.value);
-            for (Tree<T> child : node.children) {
-                queue.addLast(child);
+        Deque<Tree<T>> nodes = new ArrayDeque<>();
+        nodes.addLast(this);
+
+        while (! nodes.isEmpty()) {
+            Tree<T> current = nodes.removeFirst();
+            result.add(current.value);
+            for (Tree<T> child : current.children) {
+                nodes.addLast(child);
             }
         }
         return result;
