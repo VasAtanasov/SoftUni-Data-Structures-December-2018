@@ -1,7 +1,6 @@
 import java.util.function.Consumer;
 
 public class BinaryTree<T> {
-
     private static final String INDENT = " ";
 
     private T value;
@@ -9,15 +8,15 @@ public class BinaryTree<T> {
     private BinaryTree<T> rightChild;
 
     public BinaryTree(T value) {
-        this.value = value;
+        this(value, null);
     }
 
     public BinaryTree(T value, BinaryTree<T> child) {
-        this.leftChild = this.rightChild = child;
+        this(value, child, child);
     }
 
     public BinaryTree(T value, BinaryTree<T> leftChild, BinaryTree<T> rightChild) {
-        this(value);
+        this.value = value;
         this.leftChild = leftChild;
         this.rightChild = rightChild;
     }
@@ -27,16 +26,13 @@ public class BinaryTree<T> {
         for (int i = 0; i < indent * 2; i++) {
             builder.append(INDENT);
         }
-
         builder.append(this.value).append("\n");
-
         if (this.leftChild != null) {
             this.leftChild.printIndentedPreOrder(indent + 1, builder);
         }
         if (this.rightChild != null) {
             this.rightChild.printIndentedPreOrder(indent + 1, builder);
         }
-
         return builder.toString();
     }
 
