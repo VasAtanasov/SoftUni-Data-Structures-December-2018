@@ -17,13 +17,14 @@ You are given a tree of N nodes represented as a set of N-1 pairs of nodes (pare
 <tr>
 <td>9<br>7 19<br>7 21<br>7 14<br>19 1<br>19 12<br>19 31<br>14 23<br>14 6<br>27<br>43</td>
 <td>N = 9<br>Nodes: 7->19, 7->21, 7->14, 19->1, 19->12, 19->31, 14->23, 14->6<br>P = 27<br>S = 43</td>
-<td>![](./media/image1.png)</td>
+<td><img src="./media/image1.png" alt=""></td>
 <td>Root node: 7<br>Leaf nodes: 1, 6, 12, 21, 23, 31<br>Middle nodes: 14, 19<br>Leftmost deepest 
 node: 1<br>Longest path:<br>7 -> 19 -> 1 (length = 3)<br>Paths of sum 27:<br>7 -> 19 -> 1<br>7 -> 
 14 -> 6<br>Subtrees of sum 43:<br>14 + 23 + 6</td>
 </tr>
 </tbody>
 </table>
+
 
 Problem 1.	Root Node
 Write a program to read the tree and find its root node:
