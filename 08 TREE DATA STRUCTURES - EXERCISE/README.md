@@ -81,111 +81,164 @@ Finally, you can find the root (the node that has no parent)
 ### Problem 2. Print Tree
 
 Write a program to read the tree from the console and print it in the following format (each level indented +2 spaces):
-Input	Output	Tree
-9
-7 19
-7 21
-7 14
-19 1
-19 12
-19 31
-14 23
-14 6	7
-  19
-    1
-    12
-    31
-  21
-  14
-    23
-    6	 
-Hints
+
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Output</th>
+<th>Tree</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9<br>7 19<br>7 21<br>7 14<br>19 1<br>19 12<br>19 31<br>14 23<br>14 6</td>
+<td>7<br>&nbsp;&nbsp;19<br>&nbsp;&nbsp;&nbsp;&nbsp;1<br>&nbsp;&nbsp;&nbsp;&nbsp;12<br>&nbsp;&nbsp;&nbsp;&nbsp;31<br>&nbsp;&nbsp;21<br>&nbsp;&nbsp;14<br>&nbsp;&nbsp;&nbsp;&nbsp;23<br>&nbsp;&nbsp;6 </td>
+<td><img src="./media/image1.png" alt=""></td>
+</tr>
+</tbody>
+</table>
+
+### Hints
+
 Find the root and recursively print the tree
-Problem 3.	Leaf Nodes
+
+### Problem 3. Leaf Nodes
+
 Write a program to read the tree and find all leaf nodes (in increasing order):
-Input	Output	Tree
-9
-7 19
-7 21
-7 14
-19 1
-19 12
-19 31
-14 23
-14 6	Leaf nodes: 1 6 12 21 23 31	 
-Hints
+
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Output</th>
+<th>Tree</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9<br>7 19<br>7 21<br>7 14<br>19 1<br>19 12<br>19 31<br>14 23<br>14 6</td>
+<td>Leaf nodes: 1 6 12 21 23 31</td>
+<td><img src="./media/image1.png" alt=""></td>
+</tr>
+</tbody>
+</table>
+
+### Hints
+
 Find the all nodes that have no children
-Problem 4.	Middle Nodes
+
+### Problem 4. Middle Nodes
+
 Write a program to read the tree and find all middle nodes (in increasing order):
-Input	Output	Tree
-9
-7 19
-7 21
-7 14
-19 1
-19 12
-19 31
-14 23
-14 6	Middle nodes: 14 19	 
+
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Output</th>
+<th>Tree</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9<br>7 19<br>7 21<br>7 14<br>19 1<br>19 12<br>19 31<br>14 23<br>14 6</td>
+<td>Middle nodes: 14 19</td>
+<td><img src="./media/image1.png" alt=""></td>
+</tr>
+</tbody>
+</table>
+
 Hints
- 
-Problem 5.	* Deepest Node
+
+![](./media/image9.png)
+
+### Problem 5. \* Deepest Node
+
 Write a program to read the tree and find its deepest node (leftmost):
-Input	Output	Tree
-9
-7 19
-7 21
-7 14
-19 1
-19 12
-19 31
-14 23
-14 6	Deepest node: 1	 
- 
-Problem 6.	Longest Path
+
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Output</th>
+<th>Tree</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9<br>7 19<br>7 21<br>7 14<br>19 1<br>19 12<br>19 31<br>14 23<br>14 6</td>
+<td>Deepest node: 1</td>
+<td><img src="./media/image1.png" alt=""></td>
+</tr>
+</tbody>
+</table>
+
+### Problem 6. Longest Path
+
 Find the longest path in the tree (the leftmost if several paths have the same longest length)
-Input	Output	Tree
-9
-7 19
-7 21
-7 14
-19 1
-19 12
-19 31
-14 23
-14 6	Longest path: 7 19 1	 
 
-Problem 7.	All Paths With a Given Sum
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Output</th>
+<th>Tree</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9<br>7 19<br>7 21<br>7 14<br>19 1<br>19 12<br>19 31<br>14 23<br>14 6</td>
+<td>Longest path: 7 19 1</td>
+<td><img src="./media/image1.png" alt=""></td>
+</tr>
+</tbody>
+</table>
+
+### Problem 7. All Paths With a Given Sum
+
 Find all paths in the tree with given sum of their nodes (from the leftmost to the rightmost)
-Input	Output	Tree
-9
-7 19
-7 21
-7 14
-19 1
-19 12
-19 31
-14 23
-14 6
-27	Paths of sum 27:
-7 19 1
-7 14 6	 
-Problem 8.	* All Subtrees With a Given Sum
-Find all subtrees with given sum of their nodes (from the leftmost to the rightmost). Print subtrees in pre-order sequence
-Input	Output	Tree
-9
-7 19
-7 21
-7 14
-19 1
-19 12
-19 31
-14 23
-14 6
-43	Subtrees of sum 43:
-14 23 6	 
 
-Exercises: Binary Search Trees
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Output</th>
+<th>Tree</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9<br>7 19<br>7 21<br>7 14<br>19 1<br>19 12<br>19 31<br>14 23<br>14 6<br>27</td>
+<td>Paths of sum 27:<br>7 19 1<br>7 14 6 </td>
+<td><img src="./media/image1.png" alt=""></td>
+</tr>
+</tbody>
+</table>
+
+### Problem 8. \* All Subtrees With a Given Sum
+
+Find all subtrees with given sum of their nodes (from the leftmost to the rightmost). Print subtrees in pre-order sequence
+
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Output</th>
+<th>Tree</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9<br>7 19<br>7 21<br>7 14<br>19 1<br>19 12<br>19 31<br>14 23<br>14 6<br>43</td>
+<td>Subtrees of sum 43: 14 23 6</td>
+<td><img src="./media/image1.png" alt=""></td>
+</tr>
+</tbody>
+</table>
+
+## Exercises: Binary Search Trees
+
 This document defines the exercise assignments for the "Data Structures" course @ Software University. You can submit your C# code in the SoftUni Judge System - https://judge.softuni.bg/Contests/604/Binary-Search-Trees-CSharp-Exercise. You can submit your Java code in the SoftUni Judge System - https://judge.softuni.bg/Contests/607/Binary-Search-Trees-Java-Exercise.
 Implement BST Operations
 You are given a skeleton, in which you will find implemented the following operations:
