@@ -237,74 +237,159 @@ Find all subtrees with given sum of their nodes (from the leftmost to the rightm
 </tbody>
 </table>
 
+<p><b>Java Impelementation: <a href="./homeweork">homework</a></b></p>
+
 ## Exercises: Binary Search Trees
 
-This document defines the exercise assignments for the "Data Structures" course @ Software University. You can submit your C# code in the SoftUni Judge System - https://judge.softuni.bg/Contests/604/Binary-Search-Trees-CSharp-Exercise. You can submit your Java code in the SoftUni Judge System - https://judge.softuni.bg/Contests/607/Binary-Search-Trees-Java-Exercise.
-Implement BST Operations
-You are given a skeleton, in which you will find implemented the following operations:
-•	void Insert(T) – Recursive implementation
-•	void EachInOrder(Action<T>) – In-Order traversal
-•	bool Contains(T) – Iterative implementation
-•	BST<T> Search(T) – Returns copy of the BST
-•	IEnumerable<T> Range(T, T) – Returns collection with the elements found in the BST. Both borders are inclusive.
-•	DeleteMin() – Deletes the smallest element in the tree. Throws exception if the tree is empty.
-You will need to implement the rest of the operations, that are defined below:
-C# Method	Java Method	Return Type	Exception C#/Java 
-DeleteMax()	deleteMax()	void	C# - InvalidOperationException
-Java -IllegalArgumentException
-Count()	size()	int	
-Rank(T)	rank(T)	int	
-Select(int)	select(int)	T	C# - InvalidOperationException
-Ceiling(T)	ceiling(T)	T	C# - InvalidOperationException
-Floor(T)	floor(T)	T	C# - InvalidOperationException
-Delete(T)	delete(T)	void	C# - InvalidOperationException
-Java - IllegalArgumentException
-Problem 1.	Delete Max
-Implement a method which deletes the max element in a BST (Binary Search Tree). If the tree is empty it should throw exception. The logic is similar to the DeleteMin() method, but you need to traverse the tree to the right.
- 
+This document defines the exercise assignments for the "Data Structures" course @ Software University. https://judge.softuni.bg/Contests/607/Binary-Search-Trees-Java-Exercise
 
-Problem 2.	Count
-Implement a method which returns the count of elements in the BST. 
- 
-Hints
+### Implement BST Operations
+
+You are given a skeleton, in which you will find implemented the following operations:
+
+- void Insert(T) – Recursive implementation
+- void EachInOrder(Action\<T>) – In-Order traversal
+- bool Contains(T) – Iterative implementation
+- BST\<T> Search(T) – Returns copy of the BST
+- IEnumerable\<T> Range(T, T) – Returns collection with the elements found in the BST. Both borders are inclusive.
+- DeleteMin() – Deletes the smallest element in the tree. Throws exception if the tree is empty.
+
+You will need to implement the rest of the operations, that are defined below:
+
+<table>
+<thead>
+<tr>
+<th>C# Method</th>
+<th>Java Method</th>
+<th>Return Type</th>
+<th>Exception C#/Java </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DeleteMax()</td>
+<td>deleteMax()</td>
+<td>void</td>
+<td>C# - InvalidOperationException<br>Java -IllegalArgumentException</td>
+</tr>
+<tr>
+<td>Count()</td>
+<td>size()</td>
+<td>int</td>
+<td></td>
+</tr>
+<tr>
+<td>Rank(T)</td>
+<td>rank(T)</td>
+<td>int</td>
+<td></td>
+</tr>
+<tr>
+<td>Select(int)</td>
+<td>select(int)</td>
+<td>T</td>
+<td>C# - InvalidOperationException</td>
+</tr>
+<tr>
+<td>Ceiling(T)</td>
+<td>ceiling(T)</td>
+<td>T</td>
+<td>C# - InvalidOperationException</td>
+</tr>
+<tr>
+<td>Floor(T)</td>
+<td>floor(T)</td>
+<td>T</td>
+<td>C# - InvalidOperationException</td>
+</tr>
+<tr>
+<td>Delete(T)</td>
+<td>delete(T)</td>
+<td>void</td>
+<td>C# - InvalidOperationException<br>Java - IllegalArgumentException</td>
+</tr>
+</tbody>
+</table>
+
+### Problem 1. Delete Max
+
+Implement a method which deletes the max element in a BST (Binary Search Tree). If the tree is empty it should throw exception. The logic is similar to the DeleteMin() method, but you need to traverse the tree to the right.
+
+![](./media/image10.png)
+
+### Problem 2. Count
+
+Implement a method which returns the count of elements in the BST.
+
+![](./media/image11.png)
+
+### Hints
+
 In order to implement the count, we will create a new field in our Node class:
- 
+
+![](./media/image12.png)
+
 Now we can create new method Count(Node), which will recursively find the count of elements:
- 
+
+![](./media/image13.png)
+
 If our current node is null, we will return 0. Otherwise, we will return the count of our current node:
- 
+
+![](./media/image14.png)
+
 Now we only have to modify our Insert() method. It will set the count of elements of our new node to the count of its children nodes plus itself:
- 
+
+![](./media/image15.png)
+
 Next, we need to find a way to update the recalculate the count for each node when DeleteMin() is invoked. One way would be to change the DeleteMin() implementation to be recursive:
- 
+
+![](./media/image16.png)
+
 What will happen if our tree is empty and we call DeleteMin()? Fix it. Our count is ready.
 
+### Problem 3. Rank
 
+Implement a method which returns the count of elements smaller than a given value.
 
+![](./media/image17.png)
 
-Problem 3.	Rank
-Implement a method which returns the count of elements smaller than a given value. 
- 
-Hints
+### Hints
+
 Create a new recursive method that will return 0 if the node is null:
- 
+
+![](./media/image18.png)
+
 Then, we need to compare the element with the value of the node we are currently looking at. If the element is smaller, we can go to the left. If its larger, we need to get the count of the left elements and go to the right. If we find the element, we will return the count of elements, smaller than it.
- 
+
+![](./media/image19.png)
+
 You can try it out, it should work as expected.
-Problem 4.	Select
+
+### roblem 4. Select
+
 Implement a method which accepts a number (n) and returns the first element which has exactly n elements smaller than it. Use the logic from Count() and Rank() to implement it.
- 
-Problem 5.	Floor
+
+![](./media/image20.png)
+
+### Problem 5. Floor
+
 Implement a method which finds (returns) the nearest smaller value than given in the BST. This operation is similar to DeleteMin().
- 
-Problem 6.	Ceiling
+
+![](./media/image21.png)
+
+### Problem 6. Ceiling
+
 Implement a method which finds (returns) the nearest larger value than given in the BST. This operation is similar to Floor() and DeleteMax().
- 
-Problem 7.	Delete*
+
+![](./media/image22.png)
+
+### Problem 7. Delete\*
+
 Implement a method which deletes a node with given value.
- 
- 
 
+![](./media/image23.png)
+![](./media/image24.png)
 
+<p><b>Java Impelementation: <a href="./binarysearchtree">Binary Search Tree</a></b></p>
 
-
+<p><b>Document with tasks description: <a href="./Data-Strucutres-Basic-Trees-And-Binary-Search-Trees-Exercises.docx">Data-Strucutres-Basic-Trees-And-Binary-Search-Trees-Exercises.docx</a></b></p>
