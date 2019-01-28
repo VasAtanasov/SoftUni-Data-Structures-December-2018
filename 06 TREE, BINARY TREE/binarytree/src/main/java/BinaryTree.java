@@ -23,36 +23,45 @@ public class BinaryTree<T> {
 
     // append output to builder
     public String printIndentedPreOrder(int indent, StringBuilder builder) {
-        for (int i = 0; i < indent * 2; i++) {
-            builder.append(INDENT);
-        }
-        builder.append(this.value).append("\n");
-        if (this.leftChild != null) {
-            this.leftChild.printIndentedPreOrder(indent + 1, builder);
-        }
-        if (this.rightChild != null) {
-            this.rightChild.printIndentedPreOrder(indent + 1, builder);
-        }
+        this.printIndentedPreOrder(this, indent, builder);
         return builder.toString();
     }
 
+    private void printIndentedPreOrder(BinaryTree<T> node, int indent, StringBuilder builder) {
+        if (node == null) {
+            return;
+        }
+        for (int i = 0; i < indent * 2; i++) {
+            builder.append(INDENT);
+        }
+        builder.append(node.value).append("\n");
+        this.printIndentedPreOrder(node.leftChild, indent + 1, builder);
+        this.printIndentedPreOrder(node.rightChild, indent + 1, builder);
+    }
+
     public void eachInOrder(Consumer<T> consumer) {
-        if (this.leftChild != null) {
-            this.leftChild.eachInOrder(consumer);
+        this.eachInOrder(this, consumer);
+    }
+
+    private void eachInOrder(BinaryTree<T> node, Consumer<T> consumer) {
+        if (node == null) {
+            return;
         }
-        consumer.accept(this.value);
-        if (this.rightChild != null) {
-            this.rightChild.eachInOrder(consumer);
-        }
+        this.eachInOrder(node.leftChild,consumer);
+        consumer.accept(node.value);
+        this.eachInOrder(node.rightChild,consumer);
     }
 
     public void eachPostOrder(Consumer<T> consumer) {
-        if (this.leftChild != null) {
-            this.leftChild.eachPostOrder(consumer);
+        this.eachPostOrder(this,consumer);
+    }
+
+    private void eachPostOrder(BinaryTree<T> node, Consumer<T> consumer) {
+        if (node == null) {
+            return;
         }
-        if (this.rightChild != null) {
-            this.rightChild.eachPostOrder(consumer);
-        }
-        consumer.accept(this.value);
+        this.eachPostOrder(node.leftChild,consumer);
+        this.eachPostOrder(node.rightChild,consumer);
+        consumer.accept(node.value);
     }
 }
