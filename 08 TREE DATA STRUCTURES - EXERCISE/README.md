@@ -11,6 +11,8 @@ You are given a tree of N nodes represented as a set of N-1 pairs of nodes (pare
 <tr>
 <th>Input</th>
 <th>Output</th>
+<th>Tree</th>
+<th>Definitions</th>
 </tr>
 </thead>
 <tbody>
@@ -25,35 +27,59 @@ node: 1<br>Longest path:<br>7 -> 19 -> 1 (length = 3)<br>Paths of sum 27:<br>7 -
 </tbody>
 </table>
 
+### Problem 1. Root Node
 
-Problem 1.	Root Node
 Write a program to read the tree and find its root node:
-Input	Output	Tree
-9
-7 19
-7 21
-7 14
-19 1
-19 12
-19 31
-14 23
-14 6	Root node: 7	 
-Hints
-Use the recursive Tree<T> definition. Keep the value, parent and children for each tree node:
- 
-Modify the Tree<T> constructor to assign a parent for each child node:
- 
+
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Output</th>
+<th>Tree</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9<br>7 19<br>7 21<br>7 14<br>19 1<br>19 12<br>19 31<br>14 23<br>14 6</td>
+<td>Root node: 7</td>
+<td><img src="./media/image1.png" alt=""></td>
+</tr>
+</tbody>
+</table>
+
+### Hints
+
+Use the recursive Tree\<T> definition. Keep the value, parent and children for each tree node:
+
+![](./media/image2.png)
+
+Modify the Tree\<T> constructor to assign a parent for each child node:
+
+![](./media/image3.png)
+
 Use a dictionary to map nodes by their value. This will allow you to find the tree nodes during the tree construction (when you read the input data, you get the node values):
- 
+
+![](./media/image4.png)
+
 Write a method to find the tree node by its value or create a new node if it does not exist:
- 
+
+![](./media/image5.png)
+
 Create a method for adding an edge to the tree
- 
+
+![](./media/image6.png)
+
 Now you are ready to create the tree. You are given the tree edges (parent + child). Use the dictionary to lookup the parent and child nodes by their values:
- 
+
+![](./media/image7.png)
+
 Finally, you can find the root (the node that has no parent)
- 
-Problem 2.	Print Tree
+
+![](./media/image8.png)
+
+### Problem 2. Print Tree
+
 Write a program to read the tree from the console and print it in the following format (each level indented +2 spaces):
 Input	Output	Tree
 9
