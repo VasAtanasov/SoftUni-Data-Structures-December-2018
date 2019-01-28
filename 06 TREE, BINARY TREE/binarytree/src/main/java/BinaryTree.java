@@ -47,21 +47,21 @@ public class BinaryTree<T> {
         if (node == null) {
             return;
         }
-        this.eachInOrder(node.leftChild,consumer);
+        this.eachInOrder(node.leftChild, consumer);
         consumer.accept(node.value);
-        this.eachInOrder(node.rightChild,consumer);
+        this.eachInOrder(node.rightChild, consumer);
     }
 
     public void eachPostOrder(Consumer<T> consumer) {
-        this.eachPostOrder(this,consumer);
+        this.eachPostOrder(this, consumer);
     }
 
     private void eachPostOrder(BinaryTree<T> node, Consumer<T> consumer) {
         if (node == null) {
             return;
         }
-        this.eachPostOrder(node.leftChild,consumer);
-        this.eachPostOrder(node.rightChild,consumer);
+        this.eachPostOrder(node.leftChild, consumer);
+        this.eachPostOrder(node.rightChild, consumer);
         consumer.accept(node.value);
     }
 }
