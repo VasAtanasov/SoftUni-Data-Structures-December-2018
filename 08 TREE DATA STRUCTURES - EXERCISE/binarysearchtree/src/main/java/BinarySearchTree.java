@@ -1,14 +1,16 @@
-import java.util.*;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.function.Consumer;
 
 public class BinarySearchTree<T extends Comparable<T>> {
     private Node root;
+    private int nodesCount;
 
     public BinarySearchTree() {
     }
 
-    private BinarySearchTree(Node node) {
-        this.preOrderCopy(node);
+    private BinarySearchTree(Node root) {
+        this.preOrderCopy(root);
     }
 
     private void preOrderCopy(Node node) {
@@ -25,46 +27,16 @@ public class BinarySearchTree<T extends Comparable<T>> {
         return this.root;
     }
 
-    public int count() {
-        return this.count(this.root);
+    public int getNodesCount() {
+        return this.getNodesCount(this.root);
     }
 
-    private int count(Node node) {
+    private int getNodesCount(Node node) {
         if (node == null) {
             return 0;
         }
-        return node.count;
+        return node.childrenCount;
     }
-
-//    Iterable implementation of insert
-//    public void insert(T value) {
-//        if (this.root == null) {
-//            this.root =  new Node(value);
-//            return;
-//        }
-//
-//        Node current = this.root;
-//        Node parent = null;
-//
-//        while (current != null) {
-//            parent = current;
-//            if (value.compareTo(current.value) < 0) {
-//                current = current.left;
-//            } else if (value.compareTo(current.value) > 0) {
-//                current = current.right;
-//            } else {
-//                return;
-//            }
-//        }
-//
-//        current = new Node(value);
-//
-//        if (parent.value.compareTo(value) > 0) {
-//            parent.left = current;
-//        } else {
-//            parent.right = current;
-//        }
-//    }
 
     public void insert(T value) {
         this.root = this.insert(this.root, value);
@@ -75,36 +47,49 @@ public class BinarySearchTree<T extends Comparable<T>> {
             return new Node(value);
         }
 
-        if (node.value.compareTo(value) > 0) {
+        int compare = node.value.compareTo(value);
+
+        if (compare > 0) {
             node.left = this.insert(node.left, value);
-        } else if (node.value.compareTo(value) < 0) {
+        } else {
             node.right = this.insert(node.right, value);
         }
 
-        node.count = 1 + this.count(node.left) + this.count(node.right);
+        node.childrenCount = 1 + this.getNodesCount(node.left) + this.getNodesCount(node.right);
+
         return node;
     }
 
     public boolean contains(T value) {
-        return this.findElement(value) != null;
+        return this.contains(this.root, value);
+    }
+
+    private boolean contains(Node node, T value) {
+        if (node == null) {
+            return false;
+        }
+        if (node.value == value) {
+            return true;
+        } else if (node.value.compareTo(value) > 0) {
+            return contains(node.left, value);
+        } else {
+            return contains(node.right, value);
+        }
     }
 
     public BinarySearchTree<T> search(T item) {
-        return new BinarySearchTree<>(this.findElement(item));
-    }
-
-    private Node findElement(T item) {
         Node current = this.root;
         while (current != null) {
-            if (item.compareTo(current.value) < 0) {
+            int compare = current.value.compareTo(item);
+            if (compare > 0) {
                 current = current.left;
-            } else if (item.compareTo(current.value) > 0) {
+            } else if (compare < 0) {
                 current = current.right;
             } else {
                 break;
             }
         }
-        return current;
+        return new BinarySearchTree<>(current);
     }
 
     public void eachInOrder(Consumer<T> consumer) {
@@ -131,6 +116,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
         if (node == null) {
             return;
         }
+
         int compareStart = startRange.compareTo(node.value);
         int compareEnd = endRange.compareTo(node.value);
         if (compareStart < 0) {
@@ -144,37 +130,15 @@ public class BinarySearchTree<T extends Comparable<T>> {
         }
     }
 
-    private Node findMin(Node node) {
-        if (node == null) {
-            return null;
+    private T minValue(Node root) {
+        T minv = root.value;
+        while (root.left != null) {
+            minv = root.left.value;
+            root = root.left;
         }
 
-        if (node.left == null) {
-            return node;
-        }
-
-        return findMin(node.left);
+        return minv;
     }
-
-//    public void deleteMin() {
-//        if (this.root == null) {
-//            throw new IllegalArgumentException();
-//        }
-//
-//        Node parent = null;
-//        Node current = this.root;
-//
-//        while (current.left != null) {
-//            parent = current;
-//            current = current.left;
-//        }
-//
-//        if (parent == null) {
-//            this.root = this.root.right;
-//        } else {
-//            parent.left = current.right;
-//        }
-//    }
 
     public void deleteMin() {
         if (this.root == null) {
@@ -191,32 +155,15 @@ public class BinarySearchTree<T extends Comparable<T>> {
             return node.right;
         }
         node.left = this.deleteMin(node.left);
-        node.count = 1 + this.count(node.left) + this.count(node.right);
+        node.childrenCount = 1 + this.getNodesCount(node.left) + this.getNodesCount(node.right);
         return node;
     }
-
-//    public void deleteMax() {
-//        if (this.root == null) {
-//            throw new IllegalArgumentException();
-//        }
-//        Node parent = null;
-//        Node max = this.root;
-//        while (max.getRight() != null) {
-//            parent = max;
-//            max = max.right;
-//        }
-//        if (parent == null) {
-//            this.root = this.root.left;
-//        } else {
-//            parent.right = max.left;
-//        }
-//    }
 
     public void deleteMax() {
         if (this.root == null) {
             throw new IllegalArgumentException();
         }
-        this.root = this.deleteMax(this.root);
+        this.root = deleteMax(this.root);
     }
 
     private Node deleteMax(Node node) {
@@ -227,135 +174,58 @@ public class BinarySearchTree<T extends Comparable<T>> {
             return node.left;
         }
         node.right = this.deleteMax(node.right);
-        node.count = 1 + this.count(node.left) + this.count(node.right);
+        node.childrenCount = 1 + this.getNodesCount(node.left) + this.getNodesCount(node.right);
         return node;
     }
 
-    @SuppressWarnings("Duplicates")
     public T ceil(T element) {
-        Node currentNode = this.root;
-        T result = null;
-        while (currentNode != null) {
-            if (element.compareTo(currentNode.value) < 0) {
-                result = currentNode.value;
-                currentNode = currentNode.left;
-            } else if (element.compareTo(currentNode.value) > 0) {
-                currentNode = currentNode.right;
-            } else {
-                result = currentNode.value;
-                break;
-            }
-        }
-        return result;
+        throw new UnsupportedOperationException();
     }
 
-    @SuppressWarnings("Duplicates")
     public T floor(T element) {
-        Node currentNode = this.root;
-        T result = null;
-        while (currentNode != null) {
-            if (element.compareTo(currentNode.value) < 0) {
-                currentNode = currentNode.left;
-            } else if (element.compareTo(currentNode.value) > 0) {
-                result = currentNode.value;
-                currentNode = currentNode.right;
-            } else {
-                result = currentNode.value;
-                break;
-            }
-        }
-        return result;
+        throw new UnsupportedOperationException();
     }
 
-    public void delete(T element) {
-        if (this.root == null) {
-            throw new IllegalArgumentException();
-        }
-        this.root = delete(this.root, element);
+    public void delete(T key) {
+        throw new UnsupportedOperationException();
     }
 
-    private Node delete(Node node, T item) {
-        if (node == null) {
-            return null;
-        }
-
-        int cmp = item.compareTo(node.value);
-
-        if (cmp < 0) {
-            node.left = delete(node.left, item);
-        } else if (cmp > 0) {
-            node.right = delete(node.right, item);
-        } else {
-            if (node.right == null) {
-                return node.left;
-            }
-
-            if (node.left == null) {
-                return node.right;
-            }
-
-            Node temp = findMin(node.right);
-            temp.right = deleteMin(node.right);
-            temp.left = node.left;
-            node = temp;
-        }
-
-        node.count = count(node.left) + count(node.right) + 1;
-        return node;
+    public int rank(T element) {
+        return rank(this.root, element);
     }
 
-    public int rank(T item) {
-        return this.rank(this.root, item);
-    }
-
-    private int rank(Node node, T item) {
+    private int rank(Node node, T element) {
         if (node == null) {
             return 0;
         }
 
-        int compare = item.compareTo(node.value);
+        int compare = node.value.compareTo(element);
+
+        if (compare > 0) {
+            return this.rank(node.left, element);
+        }
 
         if (compare < 0) {
-            return this.rank(node.left, item);
-        }
-        if (compare > 0) {
-            return 1 + this.count(node.left) + this.rank(node.right, item);
+            return 1 + this.getNodesCount(node.left) + this.rank(node.right, element);
         }
 
-        return this.count(node.left);
+        return this.getNodesCount(node.left);
     }
 
     public T select(int n) {
-        T result = null;
-        if (this.root == null) {
-            throw new IllegalArgumentException("Tree is empty!");
-        }
-        ArrayDeque<Node> nodeStack = new ArrayDeque<>();
-        nodeStack.push(this.root);
-        while (! nodeStack.isEmpty()) {
-            Node currentNode = nodeStack.pollLast();
-            if (n == this.rank(currentNode.value)) {
-                result = currentNode.value;
-            }
-            if (currentNode.right != null) {
-                nodeStack.push(currentNode.right);
-            }
-            if (currentNode.left != null) {
-                nodeStack.push(currentNode.left);
-            }
-        }
-        return result;
+        throw new UnsupportedOperationException();
     }
 
     class Node {
         private T value;
         private Node left;
         private Node right;
-        private int count;
+
+        private int childrenCount;
 
         public Node(T value) {
-            this.count = 1;
             this.value = value;
+            this.childrenCount = 1;
         }
 
         public T getValue() {
@@ -380,6 +250,11 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
         public void setRight(Node right) {
             this.right = right;
+        }
+
+        @Override
+        public String toString() {
+            return this.value + "";
         }
     }
 }
