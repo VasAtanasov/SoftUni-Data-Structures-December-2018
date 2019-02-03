@@ -1,10 +1,10 @@
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 public class BinarySearchTree<T extends Comparable<T>> {
     private Node root;
-    private int nodesCount;
 
     public BinarySearchTree() {
     }
@@ -130,11 +130,11 @@ public class BinarySearchTree<T extends Comparable<T>> {
         }
     }
 
-    private T minValue(Node root) {
-        T minv = root.value;
-        while (root.left != null) {
-            minv = root.left.value;
-            root = root.left;
+    private T minValue(Node node) {
+        T minv = node.value;
+        while (node.left != null) {
+            minv = node.left.value;
+            node = node.left;
         }
 
         return minv;
@@ -179,15 +179,88 @@ public class BinarySearchTree<T extends Comparable<T>> {
     }
 
     public T ceil(T element) {
-        throw new UnsupportedOperationException();
+        Node node = this.ceil(this.root, element);
+        if (node == null) {
+            return null;
+        }
+        return node.value;
+    }
+
+    public Node ceil(Node node, T element) {
+        if (node == null) {
+            return null;
+        }
+
+        if (node.value.compareTo(element) == 0) {
+            return node;
+        }
+        if (node.value.compareTo(element) > 0) {
+            Node left = ceil(node.left, element);
+            return Objects.requireNonNullElse(left, node);
+        }
+
+        return ceil(node.right, element);
     }
 
     public T floor(T element) {
-        throw new UnsupportedOperationException();
+        Node node = this.floor(this.root, element);
+        if (node == null) {
+            return null;
+        }
+        return node.value;
     }
 
-    public void delete(T key) {
-        throw new UnsupportedOperationException();
+    public Node floor(Node node, T element) {
+        if (node == null) {
+            return null;
+        }
+        if (node.value == element) {
+            return node;
+        }
+        if (node.value.compareTo(element) > 0) {
+            return floor(node.left, element);
+        }
+        Node right = floor(node.right, element);
+        if (right == null) {
+            return node;
+        } else {
+            return right;
+        }
+    }
+
+    public void delete(T element) {
+        this.root = this.delete(this.root, element);
+
+    }
+
+    private Node delete(Node node, T element) {
+        if (node == null) {
+            return null;
+        }
+
+        int compare = node.value.compareTo(element);
+
+        if (compare > 0) {
+            node.left = this.delete(node.left, element);
+        } else if (compare < 0) {
+            node.right = this.delete(node.right, element);
+        } else {
+
+            if (node.left == null) {
+                return node.right;
+            }
+            if (node.right == null) {
+                return node.left;
+            }
+
+            node.value = this.minValue(node.right);
+
+            node.right = this.delete(node.right, node.value);
+        }
+
+        node.childrenCount = 1 + this.getNodesCount(node.left) + this.getNodesCount(node.right);
+
+        return node;
     }
 
     public int rank(T element) {
@@ -212,8 +285,30 @@ public class BinarySearchTree<T extends Comparable<T>> {
         return this.getNodesCount(node.left);
     }
 
-    public T select(int n) {
-        throw new UnsupportedOperationException();
+    public T select(int rank) {
+        Node node = this.select(this.root, rank);
+
+        if (node == null) {
+            return null;
+        }
+
+        return node.value;
+    }
+
+    private Node select(Node node, int rank) {
+        if (node == null) {
+            return null;
+        }
+
+        int leftCount = this.getNodesCount(node.left);
+
+        if (leftCount > rank) {
+            return this.select(node.left, rank);
+        } else if (leftCount < rank) {
+            return this.select(node.right, rank - (leftCount + 1));
+        }
+
+        return node;
     }
 
     class Node {
