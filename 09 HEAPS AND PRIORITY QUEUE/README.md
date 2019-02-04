@@ -6,10 +6,10 @@ This document defines the in-class exercises assignments the "Data Structures" c
 
 You are given a skeleton. You should implement the following operations:
 
-- int Count  returns the number of elements in the structure 
-- void Insert(T item)  adds an element
-- T Peek()  returns the maximum element without removing it
-- T Pull()  removes and returns the maximum element
+- int Count -> returns the number of elements in the structure 
+- void Insert(T item) -> adds an element
+- T Peek() -> returns the maximum element without removing it
+- T Pull() -> removes and returns the maximum element
   
         public class BinaryHeap<T> where T : IComparable<T>
         {

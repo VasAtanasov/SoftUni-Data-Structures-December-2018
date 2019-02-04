@@ -13,73 +13,68 @@ public class BinaryHeap<T extends Comparable<T>> {
         return this.heap.size();
     }
 
-    public boolean isEmpty() {
-        return this.size() == 0;
-    }
-
-    private int parent(int index) {
-        return (index - 1) / 2;
-    }
-
-    private int left(int index) {
-        return (2 * index) + 1;
-    }
-
-    private int right(int index) {
-        return (2 * index) + 2;
-    }
-
     public void insert(T element) {
         this.heap.add(element);
-        this.heapifyUp();
+        this.heapifyUp(this.size() - 1);
     }
 
-    private void heapifyUp() {
-        int index = this.heap.size() - 1;
-        while (index > 0 && isLess(parent(index), index)) {
-            this.swap(this.parent(index), index);
-            index = parent(index);
+    private void heapifyUp(int index) {
+        while (index > 0 && this.isLess(this.getParentIndex(index), index)) {
+            this.swap(index, this.getParentIndex(index));
+            index = this.getParentIndex(index);
         }
     }
 
-    private boolean isLess(int parentIndex, int childIndex) {
-        return this.heap.get(parentIndex).compareTo(this.heap.get(childIndex)) < 0;
+    private void swap(int index, int parentIndex) {
+        T tmp = this.heap.get(parentIndex);
+        this.heap.set(parentIndex, this.heap.get(index));
+        this.heap.set(index, tmp);
     }
 
-    private void swap(int parentIndex, int childIndex) {
-        T temp = this.heap.get(parentIndex);
-        this.heap.set(parentIndex, this.heap.get(childIndex));
-        this.heap.set(childIndex, temp);
+    private boolean isLess(int parentIndex, int index) {
+        return this.heap.get(parentIndex).compareTo(this.heap.get(index)) < 0;
     }
 
+    private int getParentIndex(int index) {
+        if (index == 0) {
+            return 0;
+        }
+        return (index - 1) / 2;
+    }
+
+    private int getLeftChildIndex(int index) {
+        return 2 * index + 1;
+    }
+
+    private int getRightChildIndex(int index) {
+        return 2 * index + 2;
+    }
 
     public T peek() {
-        if (isEmpty()) {
+        if (this.heap.isEmpty()) {
             throw new IllegalArgumentException();
         }
         return this.heap.get(0);
     }
 
     public T pull() {
-        if (this.isEmpty()) {
+        if (this.heap.isEmpty()) {
             throw new IllegalArgumentException();
         }
-        T element = this.heap.get(0);
-
+        T item = this.heap.get(0);
         this.swap(0, this.size() - 1);
         this.heap.remove(this.size() - 1);
-        this.heapifyDown();
-        return element;
+        this.heapifyDown(0);
+
+        return item;
     }
 
-    private void heapifyDown() {
-        int index = 0;
-        int child = this.left(index);
+    private void heapifyDown(int index) {
         while (index < this.size() / 2) {
-            if (hasChild(child + 1) && isLess(child, child + 1)) {
+            int child = this.getLeftChildIndex(index);
+            if (this.hasChild(child + 1) && this.isLess(child, child + 1)) {
                 child = child + 1;
             }
-
             if (isLess(child, index)) {
                 break;
             }
@@ -89,6 +84,6 @@ public class BinaryHeap<T extends Comparable<T>> {
     }
 
     private boolean hasChild(int index) {
-        return this.size() > index * 2 + 2;
+        return this.size() > this.getRightChildIndex(index);
     }
 }
