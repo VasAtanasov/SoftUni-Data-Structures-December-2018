@@ -15,7 +15,7 @@ public class RedBlackTreeTests {
     }
 
     @Test
-    public void insert_MultipleElements_ShouldBeInsertedCorrectly()  {
+    public void insert_MultipleElements_ShouldBeInsertedCorrectly() {
         RedBlackTree<Integer> rbt = new RedBlackTree<>();
         rbt.insert(5);
         rbt.insert(12);
@@ -34,7 +34,7 @@ public class RedBlackTreeTests {
         }
 
         // Assert
-        int[] expectedNodes = new int[] { 5, 12, 18, 37, 48, 60, 80 };
+        int[] expectedNodes = new int[] {5, 12, 18, 37, 48, 60, 80};
 
         Assert.assertArrayEquals(expectedNodes, result);
     }

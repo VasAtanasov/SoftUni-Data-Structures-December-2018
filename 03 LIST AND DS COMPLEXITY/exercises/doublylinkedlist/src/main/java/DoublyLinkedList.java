@@ -15,6 +15,10 @@ public class DoublyLinkedList<E> implements Iterable<E> {
         this.size = size;
     }
 
+    public boolean isEmpty() {
+        return this.size == 0;
+    }
+
     public void addFirst(E element) {
         if (this.size == 0) {
             this.head = this.tail = new Node(element);
@@ -69,19 +73,68 @@ public class DoublyLinkedList<E> implements Iterable<E> {
         return last.value;
     }
 
-    @SuppressWarnings("unchecked")
+    public Node find(E element) {
+        return this.find(this.head, element);
+    }
+
+    private Node find(Node node, E element) {
+        if (node == null) {
+            return null;
+        }
+
+        if (node.value.equals(element)) {
+            return node;
+        }
+        this.find(node.next, element);
+
+        return node;
+    }
+
+    public void insertAfter(Node prev, E element) {
+        if (this.isEmpty()) {
+            throw new IllegalArgumentException("The given previous node cannot be NULL");
+        }
+        if (prev == null) {
+            throw new IllegalArgumentException("Element not found");
+        }
+
+        Node newNode = new Node(element);
+        newNode.next = prev.next;
+        prev.next = newNode;
+        newNode.prev = prev;
+        if (newNode.next != null) {
+            newNode.next.prev = newNode;
+        }
+    }
+
+    @SuppressWarnings({"unchecked"})
     public E[] toArray() {
         E[] array = (E[]) new Object[this.size];
-        this.traverse(this.head, array, 0);
+        this.traverseForward(this.head, array, 0);
         return array;
     }
 
-    private void traverse(Node node, E[] array, int index) {
+    @SuppressWarnings({"unchecked"})
+    public E[] toReversedArray() {
+        E[] array = (E[]) new Object[this.size];
+        this.traverseBackward(this.tail, array, 0);
+        return array;
+    }
+
+    private void traverseForward(Node node, E[] array, int index) {
         if (node == null) {
             return;
         }
         array[index++] = node.value;
-        traverse(node.next, array, index);
+        traverseForward(node.next, array, index);
+    }
+
+    private void traverseBackward(Node node, E[] array, int index) {
+        if (node == null) {
+            return;
+        }
+        array[index++] = node.value;
+        traverseBackward(node.prev, array, index);
     }
 
     @Override
@@ -132,8 +185,32 @@ public class DoublyLinkedList<E> implements Iterable<E> {
         private Node next;
         private Node prev;
 
-        public Node(E value) {
+        Node(E value) {
             this.value = value;
+        }
+
+        public E getValue() {
+            return this.value;
+        }
+
+        public void setValue(E value) {
+            this.value = value;
+        }
+
+        public Node getNext() {
+            return this.next;
+        }
+
+        public void setNext(Node next) {
+            this.next = next;
+        }
+
+        public Node getPrev() {
+            return this.prev;
+        }
+
+        public void setPrev(Node prev) {
+            this.prev = prev;
         }
     }
 

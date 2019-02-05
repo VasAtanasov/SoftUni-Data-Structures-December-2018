@@ -19,7 +19,7 @@ public class UnitTestsDoublyLinkedList {
             items.add(integer);
         }
 
-        int[] expectedArray = new int[]{5};
+        int[] expectedArray = new int[] {5};
         int[] array = items.stream().mapToInt(i -> i).toArray();
         Assert.assertArrayEquals(expectedArray, array);
     }
@@ -41,7 +41,7 @@ public class UnitTestsDoublyLinkedList {
             items.add(integer);
         }
 
-        int[] expectedArray = new int[]{3, 5, 10};
+        int[] expectedArray = new int[] {3, 5, 10};
         int[] array = items.stream().mapToInt(i -> i).toArray();
         Assert.assertArrayEquals(expectedArray, array);
     }
@@ -59,7 +59,7 @@ public class UnitTestsDoublyLinkedList {
             items.add(integer);
         }
 
-        int[] expectedArray = new int[]{5};
+        int[] expectedArray = new int[] {5};
         int[] array = items.stream().mapToInt(i -> i).toArray();
         Assert.assertArrayEquals(expectedArray, array);
     }
@@ -80,7 +80,7 @@ public class UnitTestsDoublyLinkedList {
             items.add(integer);
         }
 
-        int[] expectedArray = new int[]{5, 10, 15};
+        int[] expectedArray = new int[] {5, 10, 15};
         int[] array = items.stream().mapToInt(i -> i).toArray();
         Assert.assertArrayEquals(expectedArray, array);
     }
@@ -101,7 +101,7 @@ public class UnitTestsDoublyLinkedList {
         List<Integer> items = new ArrayList<>();
         list.forEach(items::add);
 
-        int[] expectedArray = new int[]{};
+        int[] expectedArray = new int[] {};
         int[] array = items.stream().mapToInt(i -> i).toArray();
         Assert.assertArrayEquals(expectedArray, array);
     }
@@ -134,7 +134,7 @@ public class UnitTestsDoublyLinkedList {
             items.add(integer);
         }
 
-        int[] expectedArray = new int[]{6, 7};
+        int[] expectedArray = new int[] {6, 7};
         int[] array = items.stream().mapToInt(i -> i).toArray();
         Assert.assertArrayEquals(expectedArray, array);
     }
@@ -156,7 +156,7 @@ public class UnitTestsDoublyLinkedList {
         List<Integer> items = new ArrayList<>();
         list.forEach(items::add);
 
-        int[] expectedArray = new int[]{};
+        int[] expectedArray = new int[] {};
         int[] array = items.stream().mapToInt(i -> i).toArray();
         Assert.assertArrayEquals(expectedArray, array);
     }
@@ -189,7 +189,7 @@ public class UnitTestsDoublyLinkedList {
             items.add(integer);
         }
 
-        int[] expectedArray = new int[]{8, 9};
+        int[] expectedArray = new int[] {8, 9};
         int[] array = items.stream().mapToInt(i -> i).toArray();
         Assert.assertArrayEquals(expectedArray, array);
     }
@@ -202,7 +202,7 @@ public class UnitTestsDoublyLinkedList {
         List<Integer> items = new ArrayList<>();
         list.forEach(items::add);
 
-        int[] expectedArray = new int[]{};
+        int[] expectedArray = new int[] {};
         int[] array = items.stream().mapToInt(i -> i).toArray();
         Assert.assertArrayEquals(expectedArray, array);
     }
@@ -218,7 +218,7 @@ public class UnitTestsDoublyLinkedList {
             items.add(integer);
         }
 
-        int[] expectedArray = new int[]{5};
+        int[] expectedArray = new int[] {5};
         int[] array = items.stream().mapToInt(i -> i).toArray();
         Assert.assertArrayEquals(expectedArray, array);
     }
@@ -230,7 +230,7 @@ public class UnitTestsDoublyLinkedList {
         list.addLast("Six");
         list.addLast("Seven");
 
-        String[] expectedArray = new String[]{"Five", "Six", "Seven"};
+        String[] expectedArray = new String[] {"Five", "Six", "Seven"};
         Object[] array = list.toArray();
         Assert.assertArrayEquals(expectedArray, array);
     }
@@ -244,7 +244,7 @@ public class UnitTestsDoublyLinkedList {
         list.addLast("Six");
         list.addLast("Seven");
 
-        String[] expectedArray = new String[]{"Five", "Six", "Seven"};
+        String[] expectedArray = new String[] {"Five", "Six", "Seven"};
         String[] array = new String[expectedArray.length];
         int index = 0;
         for (String s : expectedArray) {
@@ -262,7 +262,7 @@ public class UnitTestsDoublyLinkedList {
         list.addLast(6);
         list.addLast(7.77);
 
-        Object[] expectedArray = new Object[]{"Five", 6, 7.77};
+        Object[] expectedArray = new Object[] {"Five", 6, 7.77};
         Object[] array = new Object[expectedArray.length];
         int index = 0;
         for (Object o : expectedArray) {
@@ -293,7 +293,22 @@ public class UnitTestsDoublyLinkedList {
         list.addLast("Seven");
 
         Object[] array = list.toArray();
-        String[] expectedArray = new String[]{"Five", "Six", "Seven"};
+        String[] expectedArray = new String[] {"Five", "Six", "Seven"};
+
+        Assert.assertArrayEquals(expectedArray, array);
+    }
+
+    @Test
+    public void toReversedArray_nonEmptyList_shouldReturnArray() {
+        DoublyLinkedList<String> list = new DoublyLinkedList<>();
+
+        list.addLast("Five");
+        list.addLast("Six");
+        list.addLast("Seven");
+
+
+        Object[] array = list.toReversedArray();
+        String[] expectedArray = new String[] {"Seven", "Six", "Five"};
 
         Assert.assertArrayEquals(expectedArray, array);
     }
