@@ -64,7 +64,6 @@ public class AVL<T extends Comparable<T>> {
         }
 
         this.updateHeight(node);
-
         return balance(node);
     }
 
