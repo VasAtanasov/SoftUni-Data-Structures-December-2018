@@ -6,7 +6,7 @@ public class Trie<Value> {
     public Value getValue(String key) {
         Node result = this.getNode(this.root, key, 0);
 
-        if (result == null || !result.isTerminal()) {
+        if (result == null || ! result.isTerminal()) {
             throw new IllegalArgumentException();
         }
 
@@ -82,12 +82,38 @@ public class Trie<Value> {
     private Iterable<String> reverseCollection(Deque<String> collection) {
         ArrayList<String> result = new ArrayList<>();
 
-       Iterator<String> iterator = collection.descendingIterator();
-       while (iterator.hasNext()) {
-           result.add(iterator.next());
-       }
+        Iterator<String> iterator = collection.descendingIterator();
+        while (iterator.hasNext()) {
+            result.add(iterator.next());
+        }
 
         return result;
+    }
+
+    public void delete(String word) {
+        delete(this.root, word, 0);
+    }
+
+    private boolean delete(Node current, String word, int index) {
+        if (index == word.length()) {
+            if (! current.isTerminal()) {
+                return false;
+            }
+            current.setTerminal(false);
+            return current.getNext().isEmpty();
+        }
+        char ch = word.charAt(index);
+        Node node = current.getNext().get(ch);
+        if (node == null) {
+            return false;
+        }
+        boolean shouldDeleteCurrentNode = delete(node, word, index + 1) && ! node.isTerminal();
+
+        if (shouldDeleteCurrentNode) {
+            current.getNext().remove(ch);
+            return current.getNext().isEmpty();
+        }
+        return false;
     }
 
     private class Node {
