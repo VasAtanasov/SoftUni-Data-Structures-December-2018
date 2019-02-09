@@ -8,6 +8,10 @@ public class AVL<T extends Comparable<T>> {
         return this.root;
     }
 
+    public int height() {
+        return height(this.root);
+    }
+
     public boolean contains(T item) {
         Node<T> node = this.search(this.root, item);
         return node != null;
@@ -48,15 +52,25 @@ public class AVL<T extends Comparable<T>> {
         return balance(node);
     }
 
-    private int height(Node<T> node) {
-        if (node == null) {
-            return 0;
-        }
-        return node.height;
-    }
+    private Node<T> balance(Node<T> node) {
+        int balance = this.balanceFactor(node);
 
-    private void updateHeight(Node<T> node) {
-        node.height = Math.max(this.height(node.left), this.height(node.right)) + 1;
+        if (balance < - 1) {
+            int childBalance = this.balanceFactor(node.right);
+            if (childBalance > 0) {
+                node.right = rotateRight(node.right);
+            }
+            return rotateLeft(node);
+
+        } else if (balance > 1) {
+            int childBalance = this.balanceFactor(node.left);
+            if (childBalance < 0) {
+                node.left = this.rotateRight(node.left);
+            }
+            return this.rotateRight(node);
+        }
+
+        return node;
     }
 
     private Node<T> rotateLeft(Node<T> node) {
@@ -81,27 +95,6 @@ public class AVL<T extends Comparable<T>> {
         return left;
     }
 
-    private Node<T> balance(Node<T> node) {
-        int balance = this.height(node.left) - this.height(node.right);
-
-        if (balance < - 1) {
-            int childBalance = this.height(node.right.left) - this.height(node.right.right);
-            if (childBalance > 0) {
-                node.right = rotateRight(node.right);
-            }
-            return rotateLeft(node);
-
-        } else if (balance > 1) {
-            int childBalance = this.height(node.left.left) - this.height(node.left.right);
-            if (childBalance < 0) {
-                node.left = this.rotateRight(node.left);
-            }
-            return this.rotateRight(node);
-        }
-
-        return node;
-    }
-
     private Node<T> search(Node<T> node, T item) {
         if (node == null) {
             return null;
@@ -115,5 +108,20 @@ public class AVL<T extends Comparable<T>> {
         }
 
         return node;
+    }
+
+    private int balanceFactor(Node<T> node) {
+        return height(node.left) - height(node.right);
+    }
+
+    private int height(Node<T> node) {
+        if (node == null) {
+            return 0;
+        }
+        return node.height;
+    }
+
+    private void updateHeight(Node<T> node) {
+        node.height = Math.max(this.height(node.left), this.height(node.right)) + 1;
     }
 }

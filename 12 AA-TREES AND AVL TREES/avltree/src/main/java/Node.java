@@ -10,5 +10,4 @@ public class Node<T extends Comparable<T>> {
         this.value = value;
         this.height = 1;
     }
-
 }
