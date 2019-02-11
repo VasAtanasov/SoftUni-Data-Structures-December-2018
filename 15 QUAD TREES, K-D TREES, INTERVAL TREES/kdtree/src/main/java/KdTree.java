@@ -1,7 +1,12 @@
+import java.util.Comparator;
 import java.util.function.Consumer;
 
 public class KdTree {
     private static final int K = 2;
+
+    private static final Comparator<Point2D> X_COMPARATOR = (a, b) -> Double.compare(b.getX(), a.getX());
+
+    private static final Comparator<Point2D> Y_COMPARATOR = (a, b) -> Double.compare(b.getY(), a.getY());
 
     public class Node {
 
@@ -89,17 +94,15 @@ public class KdTree {
     private int compare(Point2D a, Point2D b, int depth) {
         var cmp = 0;
 
-        if (depth % 2 == 0) {
-            cmp = Double.compare(b.getX(), a.getX());
-
+        if (depth % K == 0) {
+            cmp = X_COMPARATOR.compare(a, b);
             if (cmp == 0) {
-                cmp = Double.compare(b.getY(), a.getY());
+                cmp = Y_COMPARATOR.compare(a, b);
             }
         } else {
-            cmp = Double.compare(b.getY(), a.getY());
-
+            cmp = Y_COMPARATOR.compare(a, b);
             if (cmp == 0) {
-                cmp = Double.compare(b.getX(), a.getX());
+                cmp = X_COMPARATOR.compare(a, b);
             }
         }
 

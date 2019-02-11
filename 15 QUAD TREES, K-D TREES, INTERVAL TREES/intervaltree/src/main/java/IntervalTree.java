@@ -36,10 +36,8 @@ public class IntervalTree {
                 current = current.right;
             }
         }
-        if (current == null) {
-            return null;
-        }
-        return current.interval;
+
+        return current == null ? null : current.interval;
     }
 
     public Iterable<Interval> searchAll(double lo, double hi) {
