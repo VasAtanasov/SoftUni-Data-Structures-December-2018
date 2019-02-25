@@ -134,47 +134,47 @@ public class AVL<T extends Comparable<T>> {
         return node;
     }
 
+    private Node<T> balance(Node<T> node) {
+        int balance = this.balanceFactor(node);
+        if (balance > 1) {
+            int childBalance = this.balanceFactor(node.left);
+            if (childBalance < 0) {
+                node.left = rotateLeft(node.left);
+            }
+
+            node = rotateRight(node);
+        } else if (balance < - 1) {
+            int childBalance = this.balanceFactor(node.right);
+            if (childBalance > 0) {
+                node.right = rotateRight(node.right);
+            }
+
+            node = rotateLeft(node);
+        }
+
+        return node;
+    }
+
+    private Node<T> rotateRight(Node<T> node) {
+        Node<T> left = node.left;
+        node.left = left.right;
+        left.right = node;
+
+        updateHeight(node);
+        left.height = Math.max(this.height(node), this.height(left.left)) + 1;
+
+        return left;
+    }
+
     private Node<T> rotateLeft(Node<T> node) {
         Node<T> right = node.right;
         node.right = right.left;
         right.left = node;
 
-        this.updateHeight(node);
-        this.updateHeight(right);
+        updateHeight(node);
+        right.height = Math.max(this.height(node), this.height(right.right)) + 1;
 
         return right;
-    }
-
-    private Node<T> rotateRight(Node<T> node) {
-        Node<T> left = node.left;
-        node.left = node.left.right;
-        left.right = node;
-
-        this.updateHeight(node);
-        this.updateHeight(left);
-
-        return left;
-    }
-
-    private Node<T> balance(Node<T> node) {
-        int balance = this.balanceFactor(node);
-
-        if (balance < - 1) {
-            int childBalance = this.balanceFactor(node.right);
-            if (childBalance > 0) {
-                node.right = rotateRight(node.right);
-            }
-            return rotateLeft(node);
-
-        } else if (balance > 1) {
-            int childBalance = this.balanceFactor(node.left);
-            if (childBalance < 0) {
-                node.left = this.rotateRight(node.left);
-            }
-            return this.rotateRight(node);
-        }
-
-        return node;
     }
 
     private Node<T> search(Node<T> node, T item) {
@@ -191,6 +191,7 @@ public class AVL<T extends Comparable<T>> {
 
         return node;
     }
+
     private int balanceFactor(Node<T> node) {
         return height(node.left) - height(node.right);
     }

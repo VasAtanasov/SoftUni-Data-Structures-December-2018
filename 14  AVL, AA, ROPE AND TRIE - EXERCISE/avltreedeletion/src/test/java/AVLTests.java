@@ -2,11 +2,29 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class AVLTests {
 
     // INSERT
+
+    @Test
+    public void createOrderedSet_testStructure() {
+        AVL<Integer> avl = new AVL<>();
+
+        avl.insert(17);
+        avl.insert(9);
+        avl.insert(12);
+        avl.insert(19);
+        avl.insert(6);
+        avl.insert(25);
+
+        List<Integer> nodes = new ArrayList<>();
+        avl.eachInOrder(nodes::add);
+
+        Assert.assertEquals(Arrays.asList(6, 9, 12, 17, 19, 25), nodes);
+    }
 
     @Test
     public void traverseInOrder_AfterSingleInsert() {
@@ -23,7 +41,7 @@ public class AVLTests {
         }
 
         // Assert
-        int[] expectedNodes = new int[]{1};
+        int[] expectedNodes = new int[] {1};
         Assert.assertArrayEquals(expectedNodes, result);
     }
 
@@ -44,7 +62,7 @@ public class AVLTests {
         }
 
         // Assert
-        int[] expectedNodes = new int[]{1, 2, 3};
+        int[] expectedNodes = new int[] {1, 2, 3};
         Assert.assertArrayEquals(expectedNodes, result);
     }
 
@@ -197,8 +215,7 @@ public class AVLTests {
     }
 
     @Test
-    public void rebalance_SingleLeft()
-    {
+    public void rebalance_SingleLeft() {
         // Arrange
         AVL<Integer> avl = new AVL<>();
 
@@ -317,7 +334,7 @@ public class AVLTests {
         }
 
         // Assert
-        int[] expectedNodes = new int[] { 2, 3 };
+        int[] expectedNodes = new int[] {2, 3};
         Assert.assertArrayEquals(expectedNodes, result);
     }
 
@@ -336,7 +353,7 @@ public class AVLTests {
         }
 
         // Assert
-        int[] expectedNodes = new int[] { };
+        int[] expectedNodes = new int[] {};
         Assert.assertArrayEquals(expectedNodes, result);
     }
 
@@ -356,7 +373,7 @@ public class AVLTests {
         }
 
         // Assert
-        int[] expectedNodes = new int[] { };
+        int[] expectedNodes = new int[] {};
         Assert.assertArrayEquals(expectedNodes, result);
     }
 
@@ -381,7 +398,7 @@ public class AVLTests {
         }
 
         // Assert
-        int[] expectedNodes = new int[] { 3, 4, 5, 8, 9 };
+        int[] expectedNodes = new int[] {3, 4, 5, 8, 9};
         Assert.assertArrayEquals(expectedNodes, result);
     }
 
@@ -406,7 +423,7 @@ public class AVLTests {
         }
 
         // Assert
-        int[] expectedNodes = new int[] { 1, 3, 5, 8, 9 };
+        int[] expectedNodes = new int[] {1, 3, 5, 8, 9};
         Assert.assertArrayEquals(expectedNodes, result);
     }
 
@@ -432,7 +449,7 @@ public class AVLTests {
         }
 
         // Assert
-        int[] expectedNodes = new int[] { 1, 3, 4, 5, 8 };
+        int[] expectedNodes = new int[] {1, 3, 4, 5, 8};
         Assert.assertArrayEquals(expectedNodes, result);
     }
 
@@ -457,7 +474,7 @@ public class AVLTests {
         }
 
         // Assert
-        int[] expectedNodes = new int[] { 1, 3, 4, 5, 9 };
+        int[] expectedNodes = new int[] {1, 3, 4, 5, 9};
         Assert.assertArrayEquals(expectedNodes, result);
     }
 
@@ -483,7 +500,7 @@ public class AVLTests {
         }
 
         // Assert
-        int[] expectedNodes = new int[] { 1, 5, 8, 9 };
+        int[] expectedNodes = new int[] {1, 5, 8, 9};
         Assert.assertArrayEquals(expectedNodes, result);
     }
 
@@ -508,7 +525,7 @@ public class AVLTests {
         }
 
         // Assert
-        int[] expectedNodes = new int[] { 1, 4, 5, 8, 9 };
+        int[] expectedNodes = new int[] {1, 4, 5, 8, 9};
         Assert.assertArrayEquals(expectedNodes, result);
     }
 
@@ -533,7 +550,7 @@ public class AVLTests {
         }
 
         // Assert
-        int[] expectedNodes = new int[] { 1, 3, 4, 8, 9 };
+        int[] expectedNodes = new int[] {1, 3, 4, 8, 9};
         Assert.assertArrayEquals(expectedNodes, result);
     }
 
@@ -551,7 +568,7 @@ public class AVLTests {
         }
 
         // Assert
-        int[] expectedNodes = new int[] { };
+        int[] expectedNodes = new int[] {};
         Assert.assertArrayEquals(expectedNodes, result);
     }
 }
